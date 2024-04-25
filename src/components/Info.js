@@ -1,6 +1,6 @@
 import React from "react";
 import InformationCard from "./InformationCard";
-import { faHeartPulse, faTruckMedical, faTooth } from "@fortawesome/free-solid-svg-icons";
+import { faHeartPulse, faTruckMedical, faTooth, faFaceSmile, faHeadSideMask } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Info.css";
 
 function Info() {
@@ -11,42 +11,40 @@ function Info() {
           <span>What We Do</span>
         </h3>
         <p className="info-description">
-          We bring healthcare to your convenience, offering a comprehensive
-          range of on-demand medical services tailored to your needs. Our
-          platform allows you to connect with experienced online doctors who
-          provide expert medical advice, issue online prescriptions, and offer
-          quick refills whenever you require them.
+        We consider mental health to be a state of enjoying and flourishing 
+        rather than only the absence of illness. Our platform is committed to 
+        provide comprehensive resources, assistance, and direction to individuals 
+        managing the complicated nature of mental health.
         </p>
       </div>
 
       <div className="info-cards-content">
         <InformationCard
-          title="Emergency Care"
-          description="Our Emergency Care service is designed to be your reliable support
-            in critical situations. Whether it's a sudden illness, injury, or
-            any medical concern that requires immediate attention, our team of
-            dedicated healthcare professionals is available 24/7 to provide
-            prompt and efficient care."
+          title="Emergency Support"
+          description=" Our team of trained counselors is here to provide compassionate and 
+          confidential support, 24/7, for individuals facing mental health emergencies. 
+          Whether you're experiencing a panic attack, suicidal thoughts, or any other 
+          urgent mental health concern, know that you're not alone. Your well-being is our priority."
           icon={faTruckMedical}
         />
 
         <InformationCard
-          title="Heart Disease"
-          description="Our team of experienced cardiologists and medical experts use
-            state-of-the-art technology to assess your cardiovascular health and
-            design personalized treatment plans. From comprehensive screenings
-            to advanced interventions, we are committed to helping you maintain
-            a healthy heart and lead a fulfilling life."
-          icon={faHeartPulse}
+          title="Emotional Support"
+          description="Our compassionate counselors provide a safe space for you to express your 
+          feelings, process difficult emotions, and gain valuable insights into your mental well-being. 
+          Whether you're struggling with stress, grief, relationship issues, or simply need someone to 
+          talk to, our team is here to listen without judgment and offer empathetic support tailored to 
+          your unique needs. You don't have to face your struggles alone."
+          icon={faFaceSmile}
         />
 
         <InformationCard
-          title="Dental Care"
-          description="Smile with confidence as our Dental Care services cater to all your
-            oral health needs. Our skilled dentists provide a wide range of
-            treatments, from routine check-ups and cleanings to cosmetic
-            procedures and restorative treatments."
-          icon={faTooth}
+          title="Mental Healing"
+          description="Our counselors provide a nurturing and non-judgmental space where individuals can 
+          explore their thoughts, emotions, and experiences in a safe and confidential environment. 
+          Through empathetic listening, validation, and insightful guidance, clients are empowered 
+          to gain clarity, perspective, and coping strategies to navigate life's challenges more effectively."
+          icon={faHeadSideMask}
         />
       </div>
     </div>

@@ -40,9 +40,9 @@ function Hero() {
             Healing Minds, Saving Life
           </h2>
           <p className="text-descritpion">
-            Talk to online doctors and get medical advice, online prescriptions,
-            refills and medical notes within minutes. On-demand healthcare
-            services at your fingertips.
+            Welcome to In the Light Counselling, Our website provides a safe haven for 
+            people to start their journey towards resilience and inner peace. 
+            It is a lighthouse of hope and understanding in the field of mental health. 
           </p>
           <button
             className="text-appointment-btn"
@@ -51,22 +51,6 @@ function Hero() {
           >
             <FontAwesomeIcon icon={faCalendarCheck} /> Book Appointment
           </button>
-          <div className="text-stats">
-            <div className="text-stats-container">
-              <p>145k+</p>
-              <p>Receive Patients</p>
-            </div>
-
-            <div className="text-stats-container">
-              <p>50+</p>
-              <p>Expert Doctors</p>
-            </div>
-
-            <div className="text-stats-container">
-              <p>10+</p>
-              <p>Years of Experience</p>
-            </div>
-          </div>
         </div>
 
         <div className="hero-image-section">
