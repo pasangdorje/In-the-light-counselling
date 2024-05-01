@@ -38,7 +38,7 @@
     letter-spacing: .8px;
 }
 .navbar-links:hover {
-    color: #0cc2ea;
+    color: #9255a7;
 }
 .navbar-btn {
     padding: 14px 20px;
@@ -113,7 +113,7 @@
     transition: color .3s ease-in-out;
 }
 .mobile-navbar-links li a:hover {
-    color: #0cc2ea;
+    color: #9255a7;
 }
 /* Responsive */
 @media screen and (max-width: 900px) {

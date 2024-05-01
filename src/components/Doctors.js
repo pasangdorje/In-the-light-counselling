@@ -25,29 +25,29 @@ function Doctors() {
       <div className="dt-cards-content">
         <DoctorCard
           img={profile1}
-          name="Dr. Kathryn Murphy"
-          title="General Surgeons"
+          name="Kathryn Murphy"
+          title="Counsellor"
           stars="4.9"
           reviews="1800"
         />
         <DoctorCard
           img={profile2}
-          name="Dr. Jacob Jones"
-          title="Hematologists"
+          name="Jacob Jones"
+          title="Psychologist"
           stars="4.8"
           reviews="700"
         />
         <DoctorCard
           img={profile3}
-          name="Dr. Jenny Wilson"
-          title="Endocrinologists"
+          name="Jenny Wilson"
+          title="Counsellor"
           stars="4.7"
           reviews="450"
         />
         <DoctorCard
           img={profile4}
-          name="Dr. Albert Flores"
-          title="Hematologists"
+          name="Albert Flores"
+          title="Counsellor"
           stars="4.8"
           reviews="500"
         />
