@@ -8,6 +8,8 @@ import {
 import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
+import Logo from "../assets/logo.png";
+
 
 function Navbar() {
   const [nav, setNav] = useState(false);
@@ -15,6 +17,16 @@ function Navbar() {
 
   const openNav = () => {
     setNav(!nav);
+  };
+
+  const handleChatBtnClick1 = () => {
+    if (!isButtonDisabled) {
+      toast.info("Experiencing high traffic, Please wait a moment.", {
+        position: toast.POSITION.TOP_RIGHT,
+        onOpen: () => setIsButtonDisabled(true),
+        onClose: () => setIsButtonDisabled(false),
+      });
+    }
   };
 
   const handleChatBtnClick = () => {
@@ -31,7 +43,7 @@ function Navbar() {
     <div className="navbar-section">
       <h1 className="navbar-title">
         <Link to="/">
-          Health <span className="navbar-sign">+</span>
+          <img src={Logo} alt="logo" />
         </Link>
       </h1>
 
@@ -64,14 +76,27 @@ function Navbar() {
         </li>
       </ul>
 
+    <div className="nav-btn-containers">
+    <button
+        className="navbar-btn btn-outlined"
+        type="button"
+        disabled={isButtonDisabled}
+        onClick={handleChatBtnClick1}
+      >
+      Login
+      </button>
+      
       <button
         className="navbar-btn"
         type="button"
         disabled={isButtonDisabled}
         onClick={handleChatBtnClick}
+      
       >
         <FontAwesomeIcon icon={faCommentDots} /> Live Chat
       </button>
+    </div>
+     
 
       {/* Mobile */}
       <div className={`mobile-navbar ${nav ? "open-nav" : ""}`}>

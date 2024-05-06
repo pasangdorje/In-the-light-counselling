@@ -11,6 +11,10 @@
     letter-spacing: .6px;
     text-decoration: none;
 }
+.navbar-title img{
+    width: 200px;
+}
+
 .navbar-title {
     font-family: 'Poppins', sans-serif;
 }
@@ -25,7 +29,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 32px;
+    gap: 24px;
     font-family: 'Rubik', sans-serif;
 }
 .navbar-items > li {
@@ -40,6 +44,9 @@
 .navbar-links:hover {
     color: #9255a7;
 }
+.nav-btn-containers{
+    display: flex;;
+}
 .navbar-btn {
     padding: 14px 20px;
     color: white;
@@ -52,6 +59,13 @@
     letter-spacing: .8px;
     cursor: pointer;
     transition: all .4s ease;
+}
+.navbar-btn.btn-outlined {
+    color: black;
+    border: 3px solid transparent;
+    border-color: #9255a7;
+    background-color: #ffffff;
+    margin-right: 10px;
 }
 .navbar-btn:hover {
     color: #9355A7;
