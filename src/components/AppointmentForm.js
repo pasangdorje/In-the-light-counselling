@@ -8,9 +8,9 @@ function AppointmentForm() {
     window.scrollTo({ top: 0, behavior: "smooth" });
   });
 
-  const [patientName, setPatientName] = useState("");
-  const [patientNumber, setPatientNumber] = useState("");
-  const [patientGender, setPatientGender] = useState("default");
+  const [name, setName] = useState("");
+  const [number, setNumber] = useState("");
+  const [gender, setGender] = useState("default");
   const [appointmentTime, setAppointmentTime] = useState("");
   const [preferredMode, setPreferredMode] = useState("default");
   const [isSubmitted, setIsSubmitted] = useState(false);
@@ -21,20 +21,20 @@ function AppointmentForm() {
 
     // Validate form inputs
     const errors = {};
-    if (!patientName.trim()) {
-      errors.patientName = "Patient name is required";
-    } else if (patientName.trim().length < 8) {
-      errors.patientName = "Patient name must be at least 8 characters";
+    if (!name.trim()) {
+      errors.name = "Name is required";
+    } else if (name.trim().length < 8) {
+      errors.name = "Name must be at least 8 characters";
     }
 
-    if (!patientNumber.trim()) {
-      errors.patientNumber = "Patient phone number is required";
-    } else if (patientNumber.trim().length !== 10) {
-      errors.patientNumber = "Patient phone number must be of 10 digits";
+    if (!number.trim()) {
+      errors.number = "Phone number is required";
+    } else if (number.trim().length !== 10) {
+      errors.number = "Phone number must be of 10 digits";
     }
 
-    if (patientGender === "default") {
-      errors.patientGender = "Please select patient gender";
+    if (gender === "default") {
+      errors.gender = "Please select gender";
     }
     if (!appointmentTime) {
       errors.appointmentTime = "Appointment time is required";
@@ -55,9 +55,9 @@ function AppointmentForm() {
     }
 
     // Reset form fields and errors after successful submission
-    setPatientName("");
-    setPatientNumber("");
-    setPatientGender("default");
+    setName("");
+    setNumber("");
+    setGender("default");
     setAppointmentTime("");
     setPreferredMode("default");
     setFormErrors({});
@@ -87,11 +87,11 @@ function AppointmentForm() {
             Full Name:
             <input
               type="text"
-              value={patientName}
-              onChange={(e) => setPatientName(e.target.value)}
+              value={name}
+              onChange={(e) => setName(e.target.value)}
               required
             />
-            {formErrors.patientName && <p className="error-message">{formErrors.patientName}</p>}
+            {formErrors.name && <p className="error-message">{formErrors.name}</p>}
           </label>
 
           <br />
@@ -99,19 +99,19 @@ function AppointmentForm() {
             Phone Number:
             <input
               type="text"
-              value={patientNumber}
-              onChange={(e) => setPatientNumber(e.target.value)}
+              value={number}
+              onChange={(e) => setNumber(e.target.value)}
               required
             />
-            {formErrors.patientNumber && <p className="error-message">{formErrors.patientNumber}</p>}
+            {formErrors.number && <p className="error-message">{formErrors.number}</p>}
           </label>
 
           <br />
           <label>
             Gender:
             <select
-              value={patientGender}
-              onChange={(e) => setPatientGender(e.target.value)}
+              value={gender}
+              onChange={(e) => setGender(e.target.value)}
               required
             >
               <option value="default">Select</option>
@@ -119,7 +119,7 @@ function AppointmentForm() {
               <option value="female">Female</option>
               <option value="private">I don't want to disclose</option>
             </select>
-            {formErrors.patientGender && <p className="error-message">{formErrors.patientGender}</p>}
+            {formErrors.gender && <p className="error-message">{formErrors.gender}</p>}
           </label>
 
           <br />
