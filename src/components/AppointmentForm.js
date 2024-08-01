@@ -73,18 +73,18 @@ function AppointmentForm() {
     <div className="appointment-form-section">
       <h1 className="legal-siteTitle">
         <Link to="/">
-          Health <span className="legal-siteSign">+</span>
+          In the Light Counselling<span className="legal-siteSign"></span>
         </Link>
       </h1>
 
       <div className="form-container">
         <h2 className="form-title">
-          <span>Book Appointment Online</span>
+          <span>Book Your Appointment</span>
         </h2>
 
         <form className="form-content" onSubmit={handleSubmit}>
           <label>
-            Patient Full Name:
+            Full Name:
             <input
               type="text"
               value={patientName}
@@ -96,7 +96,7 @@ function AppointmentForm() {
 
           <br />
           <label>
-            Patient Phone Number:
+            Phone Number:
             <input
               type="text"
               value={patientNumber}
@@ -108,7 +108,7 @@ function AppointmentForm() {
 
           <br />
           <label>
-            Patient Gender:
+            Gender:
             <select
               value={patientGender}
               onChange={(e) => setPatientGender(e.target.value)}
@@ -117,7 +117,7 @@ function AppointmentForm() {
               <option value="default">Select</option>
               <option value="male">Male</option>
               <option value="female">Female</option>
-              <option value="private">I will inform Doctor only</option>
+              <option value="private">I don't want to disclose</option>
             </select>
             {formErrors.patientGender && <p className="error-message">{formErrors.patientGender}</p>}
           </label>
@@ -154,12 +154,12 @@ function AppointmentForm() {
             Confirm Appointment
           </button>
 
-          <p className="success-message" style={{display: isSubmitted ? "block" : "none"}}>Appointment details has been sent to the patients phone number via SMS.</p>
+          <p className="success-message" style={{display: isSubmitted ? "block" : "none"}}>Appointment  Details is Submitted and We will confirm you accordingly.</p>
         </form>
       </div>
 
       <div className="legal-footer">
-        <p>© 2013-2023 Health+. All rights reserved.</p>
+        <p>© 2024-2025 In the Light Counselling. All rights reserved.</p>
       </div>
 
       <ToastContainer autoClose={5000} limit={1} closeButton={false} />

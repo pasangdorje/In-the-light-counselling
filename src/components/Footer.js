@@ -1,6 +1,5 @@
 import React from "react";
 import "../styles/Footer.css";
-import SubscribeNewsletter from "./SubscribeNewsletter";
 import { Link } from "react-router-dom";
 
 function Footer() {
@@ -10,35 +9,29 @@ function Footer() {
         <div className="ft-info">
           <div className="ft-info-p1">
             <p className="ft-title">
-              Health <span className="ft-sign">+</span>
+              In the Light Counselling<span className="ft-sign"></span>
             </p>
             <p className="ft-description">
-              Talk to online doctors and get medical advice, online
-              prescriptions, refills and medical notes within minutes. On-demand
-              healthcare services at your fingertips.
+              Talk to us about mental health related queries 
+              and we will assure to provide you a good 
+              counselling services within minutes.
             </p>
           </div>
 
-          <SubscribeNewsletter />
+
         </div>
 
         <div className="ft-list">
           <p className="ft-list-title">Services</p>
           <ul className="ft-list-items">
             <li>
-              <a href="#services">Emergency Care</a>
+              <a href="#services">Emergency Support</a>
             </li>
             <li>
-              <a href="#services">Heart Disease</a>
+              <a href="#services">Emotional Support</a>
             </li>
             <li>
-              <a href="#services">Dental Care</a>
-            </li>
-            <li>
-              <a href="#services">Prescription</a>
-            </li>
-            <li>
-              <a href="#services">Insights for doctors</a>
+              <a href="#services">Mental Healing</a>
             </li>
           </ul>
         </div>
@@ -47,51 +40,36 @@ function Footer() {
           <p className="ft-list-title">Legal</p>
           <ul className="ft-list-items">
             <li>
-              <Link to={"/legal"}>General Info</Link>
+              <Link to={"/legal"}>General Information</Link>
             </li>
             <li>
               <Link to={"/legal"}>Privacy Policy</Link>
             </li>
             <li>
-              <Link to={"/legal"}>Terms of Services</Link>
-            </li>
-            <li>
-              <Link to={"/legal"}>Consultations</Link>
-            </li>
-            <li>
-              <Link to={"/legal"}>How it Works</Link>
+              <Link to={"/legal"}>How It Works</Link>
             </li>
           </ul>
         </div>
-
-        <div className="ft-list" id="contact">
-          <p className="ft-list-title">Talk To Us</p>
+        <div className="ft-list">
+          <p className="ft-list-title">Support</p>
           <ul className="ft-list-items">
             <li>
-              <a href="mailto:support@healthplus.com">support@healthplus.com</a>
+              <Link to={"/support"}>Contact Us</Link>
             </li>
             <li>
-              <a href="mailto:appointment@healthplus.com">
-                appointment@healthplus.com
-              </a>
-            </li>
-            <li>
-              <a href="tel:+022 5454 5252">+022 5454 5252</a>
-            </li>
-            <li>
-              <a href="tel:+022 2326 6232">+022 2326 6232</a>
+              <Link to={"/support"}>FAQ</Link>
             </li>
           </ul>
         </div>
       </div>
 
       <div className="ft-copyright">
-        <p>© 2013-2023 Health+. All rights reserved.</p>
+        <p>© 2024-2025 Inlight Counselling. All rights reserved.</p>
 
         <ul className="ft-social-links">
           <li>
             <a
-              href="https://linkedin.com/in/Alkaison/"
+              href="https://linkedin.com/"
               title="LinkedIn"
               target="_blank"
               rel="noopener noreferrer"
@@ -125,7 +103,7 @@ function Footer() {
 
           <li>
             <a
-              href="https://x.com/Alkaison/"
+              href="https://x.com/"
               title="Twitter"
               target="_blank"
               rel="noopener noreferrer"

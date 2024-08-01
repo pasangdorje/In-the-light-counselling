@@ -1,6 +1,6 @@
 import React from "react";
 import InformationCard from "./InformationCard";
-import { faHeartPulse, faTruckMedical, faTooth, faFaceSmile, faHeadSideMask } from "@fortawesome/free-solid-svg-icons";
+import {faTruckMedical, faFaceSmile, faHeadSideMask } from "@fortawesome/free-solid-svg-icons";
 import "../styles/Info.css";
 
 function Info() {
