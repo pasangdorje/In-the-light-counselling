@@ -64,11 +64,7 @@ function Navbar() {
             About
           </a>
         </li>
-        <li>
-          <a href="#reviews" className="navbar-links">
-            Reviews
-          </a>
-        </li>
+
         <li>
           <a href="#doctors" className="navbar-links">
             Doctors
@@ -118,11 +114,6 @@ function Navbar() {
           <li>
             <a onClick={openNav} href="#about">
               About
-            </a>
-          </li>
-          <li>
-            <a onClick={openNav} href="#reviews">
-              Reviews
             </a>
           </li>
           <li>

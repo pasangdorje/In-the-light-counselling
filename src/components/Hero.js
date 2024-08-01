@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from "react";
-import Doctor from "../assets/doctor-picture.png";
+import HeroBannerImage from "../assets/herobanner.jpeg";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarCheck, faAngleUp } from "@fortawesome/free-solid-svg-icons";
-import { useNavigate  } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import "../styles/Hero.css";
 
 function Hero() {
@@ -36,13 +36,13 @@ function Hero() {
     <div className="section-container">
       <div className="hero-section">
         <div className="text-section">
-          <h2 className="text-title">
-            Healing Minds, Saving Life
-          </h2>
+          <h2 className="text-title">Healing Minds, Saving Life</h2>
           <p className="text-descritpion">
-            Welcome to In the Light Counselling, Our website provides a safe haven for 
-            people to start their journey towards resilience and inner peace. 
-            It is a lighthouse of hope and understanding in the field of mental health. 
+            Welcome to In the Light Counselling. Our platform is a beacon of
+            hope, offering a secure and understanding environment where you can
+            embark on a journey towards resilience and inner peace. Let us guide
+            you through the complexities of mental health with compassion and
+            expertise.
           </p>
           <button
             className="text-appointment-btn"
@@ -54,7 +54,11 @@ function Hero() {
         </div>
 
         <div className="hero-image-section">
-          <img className="hero-image1" src={Doctor} alt="Doctor" />
+          <img
+            className="hero-image1"
+            src={HeroBannerImage}
+            alt="People counselling"
+          />
         </div>
       </div>
 
