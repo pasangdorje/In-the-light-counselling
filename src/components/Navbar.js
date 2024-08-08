@@ -9,9 +9,11 @@ import "../styles/Navbar.css";
 import { Link } from "react-router-dom";
 import { toast } from "react-toastify";
 import Logo from "../assets/logo.png";
+import { useNavigate } from "react-router-dom";
 
 
 function Navbar() {
+  const navigate = useNavigate();
   const [nav, setNav] = useState(false);
   const [isButtonDisabled, setIsButtonDisabled] = useState(false);
 
@@ -19,14 +21,8 @@ function Navbar() {
     setNav(!nav);
   };
 
-  const handleChatBtnClick1 = () => {
-    if (!isButtonDisabled) {
-      toast.info("Experiencing high traffic, Please wait a moment.", {
-        position: toast.POSITION.TOP_RIGHT,
-        onOpen: () => setIsButtonDisabled(true),
-        onClose: () => setIsButtonDisabled(false),
-      });
-    }
+  const handleLoginBtnClick = () => {
+    navigate('/login');
   };
 
   const handleChatBtnClick = () => {
@@ -66,8 +62,8 @@ function Navbar() {
         </li>
 
         <li>
-          <a href="#doctors" className="navbar-links">
-            Doctors
+          <a href="#counsellors" className="navbar-links">
+            Counsellors
           </a>
         </li>
       </ul>
@@ -76,8 +72,7 @@ function Navbar() {
     <button
         className="navbar-btn btn-outlined"
         type="button"
-        disabled={isButtonDisabled}
-        onClick={handleChatBtnClick1}
+        onClick={handleLoginBtnClick}
       >
       Login
       </button>
@@ -89,7 +84,7 @@ function Navbar() {
         onClick={handleChatBtnClick}
       
       >
-        <FontAwesomeIcon icon={faCommentDots} /> Live Chat
+        <FontAwesomeIcon icon={faCommentDots} /> Chat
       </button>
     </div>
      
@@ -117,8 +112,8 @@ function Navbar() {
             </a>
           </li>
           <li>
-            <a onClick={openNav} href="#doctors">
-              Doctors
+            <a onClick={openNav} href="#counsellors">
+              Counsellors
             </a>
           </li>
           <li>

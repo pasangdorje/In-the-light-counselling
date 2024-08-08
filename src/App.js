@@ -4,6 +4,9 @@ import "./App.css";
 import Home from "./pages/Home";
 import NotFound from "./pages/NotFound";
 import Appointment from "./pages/Appointment";
+import Login from "./components/login";
+import SignUp from "./components/signup";
+import SlotAppointment from "./components/SlotAppointment";
 
 function App() {
   return (
@@ -11,6 +14,9 @@ function App() {
       <Router>
         <Routes>
           <Route path="/" element={<Home />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<SignUp />} />
+          <Route path="/slotappointment" element={<SlotAppointment />} />
           <Route path="/appointment" element={<Appointment />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

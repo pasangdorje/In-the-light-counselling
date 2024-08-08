@@ -1,6 +1,6 @@
 import React from "react";
 
-function DoctorCard(props) {
+function CounsellorCard(props) {
   return (
     <div className="dt-card">
       <img src={props.img} alt={props.name} className="dt-card-img" />
@@ -10,4 +10,4 @@ function DoctorCard(props) {
   );
 }
 
-export default DoctorCard;
+export default CounsellorCard;

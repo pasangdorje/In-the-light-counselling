@@ -1,0 +1,36 @@
+.time-slots {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  
+  .time-slot {
+    width: 200px;
+    margin: 10px;
+    padding: 20px;
+    background-color: #fff;
+    border: 1px solid #ddd;
+    cursor: pointer;
+  }
+  
+  .time-slot.booked {
+    background-color: #ccc;
+    cursor: not-allowed;
+  }
+  
+  .appointment-details {
+    margin-top: 20px;
+  }
+  
+  .appointment-details h2 {
+    margin-bottom: 10px;
+  }
+  
+  .appointment-details form {
+    margin-bottom: 20px;
+  }
+  
+  .appointment-details label {
+    display: block;
+    margin-bottom: 10px;
+  }

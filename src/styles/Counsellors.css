@@ -1,4 +1,4 @@
-.doctor-section {
+.counsellor-section {
     padding: 32px;
     margin: 0 0 32px 0;
     text-align: center;
@@ -35,7 +35,7 @@
     letter-spacing: .8px;
     line-height: 1.8rem;
 }
-/* Doctor Cards */
+/* Counsellor Cards */
 .dt-cards-content {
     width: 100%;
     display: flex;

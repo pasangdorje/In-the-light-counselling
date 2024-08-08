@@ -1,14 +1,14 @@
 import React from "react";
-import DoctorCard from "./DoctorCard";
+import CounsellorCard from "./CounsellorCard";
 import profile1 from "../assets/profile-1.png";
 import profile2 from "../assets/profile-2.png";
 import profile3 from "../assets/profile-3.png";
 import profile4 from "../assets/profile-4.png";
-import "../styles/Doctors.css";
+import "../styles/Counsellors.css";
 
-function Doctors() {
+function Counsellors() {
   return (
-    <div className="doctor-section" id="doctors">
+    <div className="counsellor-section" id="counsellors">
       <div className="dt-title-content">
         <h3 className="dt-title">
           <span>Our Team</span>
@@ -17,25 +17,25 @@ function Doctors() {
       </div>
 
       <div className="dt-cards-content">
-        <DoctorCard
+        <CounsellorCard
           img={profile1}
           name="Kathryn Murphy"
           title="Counsellor"
 
         />
-        <DoctorCard
+        <CounsellorCard
           img={profile2}
           name="Jacob Jones"
           title="Psychologist"
 
         />
-        <DoctorCard
+        <CounsellorCard
           img={profile3}
           name="Jenny Wilson"
           title="Counsellor"
 
         />
-        <DoctorCard
+        <CounsellorCard
           img={profile4}
           name="Albert Flores"
           title="Counsellor"
@@ -46,4 +46,4 @@ function Doctors() {
   );
 }
 
-export default Doctors;
+export default Counsellors;

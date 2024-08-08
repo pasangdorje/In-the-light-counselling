@@ -3,7 +3,7 @@ import Navbar from "../components/Navbar";
 import Hero from "../components/Hero";
 import Info from "../components/Info";
 import About from "../components/About";
-import Doctors from "../components/Doctors";
+import Counsellors from "../components/Counsellors";
 import Footer from "../components/Footer";
 
 function Home() {
@@ -13,7 +13,7 @@ function Home() {
       <Hero />
       <Info />
       <About />
-      <Doctors />
+      <Counsellors />
       <Footer />
     </div>
   );
