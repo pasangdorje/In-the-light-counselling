@@ -1,0 +1,99 @@
+.login-container {
+  background-color: #fff;
+  padding: 30px;
+  border-radius: 5px;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+  width: 415px;
+  margin: 50px auto;
+}
+
+h1 {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.input-group {
+  margin-bottom: 15px;
+}
+
+input[type="email"],
+input[type="password"] {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 3px;
+  box-sizing: border-box;
+  font-weight: 300;
+}
+
+input[type="password"] {
+  position: relative;
+}
+
+input[type="password"]::after {
+  content: "\f070";
+  font-family: FontAwesome;
+  position: absolute;
+  top: 12px;
+  right: 15px;
+  cursor: pointer;
+}
+
+.login-btn {
+  background-color: #9255a7;
+  color: #fff;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+  width: 100%;
+  margin-top: 1.5rem;
+}
+
+button:hover {
+  opacity: 0.8;
+}
+
+.forgot-password {
+  text-align: center;
+  margin-top: 15px;
+}
+
+.forgot-password a {
+  color: #9255a7;
+  text-decoration: none;
+}
+
+.forgot-password a:hover {
+  text-decoration: underline;
+}
+
+.signup {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.signup a {
+  color: #9255a7;
+  text-decoration: none;
+}
+
+.signup a:hover {
+  text-decoration: underline;
+}
+/* Centering the anchor tags */
+.login-container p {
+  text-align: center;
+  margin: 10px 0;
+}
+
+.error-msg {
+  font-size: 0.875rem;
+  margin-top: 0.25rem;
+  color: #b90606;
+}

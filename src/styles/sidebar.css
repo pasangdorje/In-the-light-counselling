@@ -1,0 +1,116 @@
+@import url(app.css);
+
+.pointer-cursor {
+  cursor: pointer;
+}
+
+.sidebar-title {
+  margin: 25px auto 20px;
+}
+
+.sidebar-title img {
+  width: 200px;
+}
+
+.sidebar-nav-item li a {
+  display: flex;
+  align-items: center;
+}
+
+.sidebar-nav-item li a.active {
+  color: var(--light-text-color);
+}
+
+span.icon {
+  margin-right: 15px;
+  font-size: 1.4rem;
+  margin-top: -5px;
+}
+
+.sidebar-section {
+  background: linear-gradient(
+    0deg,
+    rgba(0, 119, 255, 1) 0%,
+    rgba(64, 164, 255, 1) 100%
+  );
+  background: #ffffff;
+  font-family: "ubuntu-regular", sans-serif;
+  padding: 0;
+  width: 300px;
+  z-index: 11;
+  height: 100vh;
+  box-shadow: 0 0 10px 0 #b0a1b5;
+  position: sticky;
+  top: 0%;
+}
+
+.sidebar-container {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  height: 100%;
+  width: 100%;
+}
+
+.sidebar-container > ul {
+  display: flex;
+  flex-direction: column;
+  padding-left: 0;
+}
+
+.sidebar-container ul > li,
+.logout-container {
+  font-size: 1rem;
+  color: var(--sidebar-text-color);
+  display: flex;
+  align-items: center;
+}
+
+.logout-container {
+  margin-bottom: 2rem;
+}
+
+.sidebar-container li a,
+.logout-container {
+  color: var(--sidebar-text-color);
+  cursor: pointer;
+  width: 100%;
+  padding: 1rem 2.5rem;
+}
+
+.sidebar-container li a:hover,
+.logout-container:hover {
+  color: var(--light-text-color);
+  background: #fbf1ff;
+  cursor: pointer;
+}
+
+@media (max-width: 1126px) {
+  .sidebar-section {
+    width: 22vw;
+  }
+}
+
+@media (max-width: 875px) {
+  .sidebar-section {
+    width: 25vw;
+  }
+}
+
+@media (max-width: 700px) {
+  .sidebar-section {
+    width: 30vw;
+  }
+}
+
+@media (max-width: 537px) {
+  .sidebar-section {
+    width: 40vw;
+  }
+}
+
+@media (max-width: 426px) {
+  .sidebar-section {
+    width: 45vw;
+  }
+}

@@ -1,0 +1,145 @@
+.navbar-section {
+  padding: 0 32px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 80px;
+  background-color: white;
+}
+.navbar-title a {
+  color: var(--darker-primary);
+  letter-spacing: 0.6px;
+  text-decoration: none;
+}
+.navbar-title img {
+  width: 200px;
+}
+
+.navbar-title {
+  font-family: "Poppins", sans-serif;
+}
+.navbar-sign {
+  color: #54de54;
+  font-family: Cambria, sans-serif;
+  font-size: 40px;
+  font-weight: bold;
+}
+.navbar-items {
+  list-style-type: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  font-family: "Rubik", sans-serif;
+  margin-bottom: 0;
+}
+.navbar-items > li {
+  list-style-type: none;
+}
+.navbar-links {
+  text-decoration: none;
+  color: black;
+  font-size: 18px;
+  letter-spacing: 0.8px;
+}
+
+.navbar-links.active {
+  color: #9255a7;
+}
+
+.navbar-links:hover {
+  color: #9255a7;
+}
+.nav-btn-containers {
+  display: flex;
+}
+.navbar-btn {
+  padding: 14px 20px;
+  color: white;
+  border: 1px solid transparent;
+  border-radius: 28px;
+  outline: transparent;
+  background-color: var(--darker-primary);
+  font-size: 18px;
+  font-family: "Rubik", sans-serif;
+  letter-spacing: 0.8px;
+  cursor: pointer;
+  transition: all 0.4s ease;
+}
+.navbar-btn.btn-outlined {
+  color: black;
+  border: 3px solid transparent;
+  border-color: #9255a7;
+  background-color: #ffffff;
+  margin-right: 10px;
+}
+.navbar-btn:hover {
+  color: var(--darker-primary);
+  background-color: white;
+  border: 1px solid var(--darker-primary);
+}
+/* Hamburger Icon */
+.mobile-nav {
+  display: none;
+}
+.hamb-icon {
+  width: 26px;
+  height: 26px;
+  cursor: pointer;
+}
+.hamb-icon:hover {
+  color: #0cc2ea;
+}
+/* Mobile Navbar */
+.mobile-navbar {
+  width: 100%;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: -100%;
+  background-color: white;
+  z-index: 20;
+  transition: left 0.5s ease-in-out;
+}
+.mobile-navbar-close {
+  position: absolute;
+  top: 28px;
+  right: 28px;
+}
+.mobile-navbar-close .hamb-icon:hover {
+  color: rgb(255, 22, 22);
+}
+.open-nav {
+  left: 0;
+}
+.mobile-navbar-links {
+  list-style-type: none;
+  display: flex;
+  flex-direction: column;
+  font-size: 24px;
+  gap: 24px;
+  text-align: center;
+  padding: 0;
+  margin-top: 10rem;
+}
+.mobile-navbar-links li a {
+  text-decoration: none;
+  color: black;
+  font-family: "Poppins", sans-serif;
+  font-weight: bold;
+  letter-spacing: 0.8px;
+  transition: color 0.3s ease-in-out;
+}
+.mobile-navbar-links li a:hover {
+  color: #9255a7;
+}
+/* Responsive */
+@media screen and (max-width: 900px) {
+  .navbar-btn,
+  .navbar-items {
+    display: none;
+  }
+  .mobile-nav {
+    display: block;
+  }
+}
