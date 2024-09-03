@@ -64,14 +64,14 @@ const AdminAppointments = () => {
         <Loading />
       ) : (
         <section className="user-section">
-          <h3 class="page-title">
-            <span class="page-title-icon bg-gradient-primary text-white me-2">
+          <h3 className="page-title">
+            <span className="page-title-icon bg-gradient-primary text-white me-2">
               <FaList />
             </span>{" "}
             All Appointments
           </h3>
           {appointments.length > 0 ? (
-            <div className="user-container">
+            <div className="user-container appointments mt-4">
               <table className="table">
                 <thead>
                   <tr>

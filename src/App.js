@@ -18,6 +18,7 @@ const Profile = lazy(() => import("./pages/Profile"));
 const Notifications = lazy(() => import("./pages/Notifications"));
 const ApplyCounsellor = lazy(() => import("./pages/ApplyCounsellor"));
 const Error = lazy(() => import("./pages/Error"));
+const Chatbot = lazy(() => import("./components/chatbot/Chatbot"));
 
 function App() {
   return (
@@ -111,6 +112,7 @@ function App() {
           <Route path="*" element={<Error />} />
         </Routes>
       </Suspense>
+      <Chatbot />
     </Router>
   );
 }

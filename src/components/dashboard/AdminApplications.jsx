@@ -91,8 +91,8 @@ const AdminApplications = () => {
         <Loading />
       ) : (
         <section className="user-section">
-           <h3 class="page-title">
-            <span class="page-title-icon bg-gradient-primary text-white me-2">
+           <h3 className="page-title">
+            <span className="page-title-icon bg-gradient-primary text-white me-2">
               <FaEnvelope />
             </span>{" "}
             All Applications

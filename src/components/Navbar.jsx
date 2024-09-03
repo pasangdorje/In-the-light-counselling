@@ -62,13 +62,18 @@ function Navbar() {
         {!token && (
           <>
             <li>
+              <HashLink to="/#about" className="navbar-links">
+                About
+              </HashLink>
+            </li>
+            <li>
               <HashLink to="/#services" className="navbar-links">
                 Services
               </HashLink>
             </li>
             <li>
-              <HashLink to="/#about" className="navbar-links">
-                About
+              <HashLink to="/#ourteam" className="navbar-links">
+                Our Team
               </HashLink>
             </li>
           </>
@@ -183,10 +188,13 @@ function Navbar() {
           {!token && (
             <>
               <li>
+                <HashLink to="/#about">About</HashLink>
+              </li>
+              <li>
                 <HashLink to="/#services">Services</HashLink>
               </li>
               <li>
-                <HashLink to="/#about">About</HashLink>
+                <HashLink to="/#ourteam">Our Team</HashLink>
               </li>
             </>
           )}
