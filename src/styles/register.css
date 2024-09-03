@@ -1,6 +1,5 @@
 @import url(app.css);
 
-
 /* SignUp Container Styles */
 .signup-container {
   background-color: #fff;
@@ -33,7 +32,8 @@ label {
 input[type="text"],
 input[type="tel"],
 input[type="email"],
-input[type="password"] {
+input[type="password"],
+textarea {
   width: 100%;
   padding: 10px;
   border: 1px solid #ddd;

@@ -31,18 +31,19 @@ const CounsellorInfoCard = ({ ele }) => {
         </h3>
         <p className="specialization">
           <strong>Specialization: </strong>
-          {ele?.specialization}
+          <span className="values">{ele?.specialization}</span>
         </p>
         <p className="experience">
           <strong>Experience: </strong>
-          {ele?.experience}yrs
+          <span className="values">{ele?.experience}yrs</span>
         </p>
         <p className="fees">
-          <strong>Fees per session: </strong>$ {ele?.fees}
+          <strong>Fees per session: </strong>{" "}
+          <span className="values">$ {ele?.fees}</span>
         </p>
         <p className="phone">
           <strong>Phone: </strong>
-          {ele?.userId?.phone}
+          <span className="values">{ele?.userId?.phone}</span>
         </p>
         <button className="btn appointment-btn" onClick={handleModal}>
           Book Appointment

@@ -77,6 +77,14 @@ function App() {
             }
           />
           <Route
+            path={ROUTES.DASHBOARD.PROFILE}
+            element={
+              <Admin>
+                <Dashboard type={"profile"} />
+              </Admin>
+            }
+          />
+          <Route
             path={ROUTES.DASHBOARD.COUNSELLORS}
             element={
               <Admin>

@@ -7,13 +7,13 @@ import {
   FaUsers,
   FaEnvelope,
 } from "react-icons/fa";
-import "../styles/sidebar.css";
+import "../../styles/sidebar.css";
 import { NavLink, useNavigate } from "react-router-dom";
 import { MdLogout } from "react-icons/md";
 import { useDispatch } from "react-redux";
-import { setUserInfo } from "../redux/reducers/rootSlice";
+import { setUserInfo } from "../../redux/reducers/rootSlice";
 import { Link } from "react-router-dom";
-import Logo from "../assets/logo.png";
+import Logo from "../../assets/logo.png";
 
 const Sidebar = () => {
   const dispatch = useDispatch();
@@ -47,7 +47,7 @@ const Sidebar = () => {
     },
     {
       name: "Profile",
-      path: "/profile",
+      path: "/dashboard/profile",
       icon: <FaUser />,
     },
   ];

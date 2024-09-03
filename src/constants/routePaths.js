@@ -13,5 +13,6 @@ export const ROUTES = {
     COUNSELLORS: "/dashboard/counsellors",
     APPOINTMENTS: "/dashboard/appointments",
     APPLICATIONS: "/dashboard/applications",
+    PROFILE: "/dashboard/profile",
   },
 };

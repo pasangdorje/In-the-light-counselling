@@ -10,6 +10,7 @@ import jwt_decode from "jwt-decode";
 import axios from "axios";
 import toast from "react-hot-toast";
 import "../styles/user.css";
+import { getFormattedTime } from "../utils/moment";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
@@ -71,17 +72,16 @@ const Appointments = () => {
           <h2 className="page-heading">Your Appointments</h2>
 
           {appointments.length > 0 ? (
-            <div className="appointments">
+            <div className="appointments w-100">
               <table className="table">
                 <thead>
                   <tr>
                     <th>S.No</th>
                     <th>Counsellor</th>
                     <th>Patient</th>
-                    <th>Appointment Date</th>
-                    <th>Appointment Time</th>
-                    <th>Booking Date</th>
-                    <th>Booking Time</th>
+                    <th>Date</th>
+                    <th>Time</th>
+                    <th>Created Date</th>
                     <th>Status</th>
                     {userId === appointments[0].counsellorId?._id ? (
                       <th>Action</th>
@@ -104,9 +104,8 @@ const Appointments = () => {
                           {ele?.userId?.firstname + " " + ele?.userId?.lastname}
                         </td>
                         <td>{ele?.date}</td>
-                        <td>{ele?.time}</td>
+                        <td> {getFormattedTime(ele?.time)}</td>
                         <td>{ele?.createdAt.split("T")[0]}</td>
-                        <td>{ele?.updatedAt.split("T")[1].split(".")[0]}</td>
                         <td>{ele?.status}</td>
                         {userId === ele?.counsellorId?._id ? (
                           <td>

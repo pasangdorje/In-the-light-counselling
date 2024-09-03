@@ -8,6 +8,7 @@ import fetchData from "../helper/apiCall";
 import { setLoading } from "../redux/reducers/rootSlice";
 import Loading from "../components/Loading";
 import "../styles/user.css";
+import { getFormattedTime } from "../utils/moment";
 
 const Notifications = () => {
   const [notifications, setNotifications] = useState([]);
@@ -37,7 +38,7 @@ const Notifications = () => {
           <h2 className="page-heading">Your Notifications</h2>
 
           {notifications.length > 0 ? (
-            <div className="notifications">
+            <div className="notifications w-100">
               <table className="table">
                 <thead>
                   <tr>
@@ -54,7 +55,7 @@ const Notifications = () => {
                         <td>{i + 1}</td>
                         <td>{ele?.content}</td>
                         <td>{ele?.updatedAt.split("T")[0]}</td>
-                        <td>{ele?.updatedAt.split("T")[1].split(".")[0]}</td>
+                        <td>{getFormattedTime(ele?.updatedAt.split("T")[1].split(".")[0])}</td>
                       </tr>
                     );
                   })}

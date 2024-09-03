@@ -11,10 +11,15 @@
 
 .user-container {
   display: flex;
-  justify-content: center;
+  justify-content: left;
   width: 100%;
-  margin-top: 1.5rem;
-  padding: 2.5rem;
+  padding: 2.5rem 0;
+}
+
+.appointments, .notifications {
+  border-radius: 8px;
+  box-shadow: 2px 2px 10px 0 rgb(188, 188, 188);
+  padding: 1.5rem !important;
 }
 
 h3 {

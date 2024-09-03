@@ -1,10 +1,11 @@
 import React from "react";
-import AdminApplications from "../components/AdminApplications";
-import AdminAppointments from "../components/AdminAppointments";
-import AdminCounsellors from "../components/AdminCounsellors";
-import Sidebar from "../components/Sidebar";
-import Users from "../components/Users";
+import AdminApplications from "../components/dashboard/AdminApplications";
+import AdminAppointments from "../components/dashboard/AdminAppointments";
+import AdminCounsellors from "../components/dashboard/AdminCounsellors";
+import Sidebar from "../components/dashboard/Sidebar";
+import Users from "../components/dashboard/Users";
 import Profile from "./Profile";
+import AdminProfile from "../components/dashboard/AdminProfile";
 
 const Dashboard = (props) => {
   const { type } = props;
@@ -22,7 +23,7 @@ const Dashboard = (props) => {
           ) : type === "appointments" ? (
             <AdminAppointments />
           ) : type === "profile" ? (
-            <Profile />
+            <AdminProfile />
           ) : (
             <></>
           )}

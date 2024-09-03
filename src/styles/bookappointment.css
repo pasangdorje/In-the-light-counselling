@@ -1,12 +1,11 @@
 @import url(app.css);
 
 .modal {
-  position: absolute;
   top: 0%;
   left: 0%;
   width: 100%;
-  height: 99vh;
-  /* background-color: rgba(0, 0, 0, 0.322); */
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.322);
   z-index: 1;
 }
 
@@ -17,19 +16,23 @@
   gap: 2rem;
   width: 50vw;
   padding: 2rem;
-  border: 1px solid var(--light-primary);
   border-radius: 10px;
-  color: var(--light-primary);
-  background-color: rgb(30, 55, 90);
+  color: var(--darker-primary);
+  background-color: white;
   position: relative;
+  min-width: 400px;
+  max-width: 800px;
 }
 
 .modal__content h2 {
-  color: var(--light-primary);
+  color: var(--darker-primary);
 }
 
 .modal__content .btn {
   font-size: 0.9rem;
+  max-width: 350px;
+  margin-left: 50%;
+  transform: translateX(-50%);
 }
 
 .close-btn {
@@ -42,7 +45,7 @@
 }
 
 .book {
-  width: 40%;
+  width: 100%;
 }
 
 .register-form {
@@ -51,4 +54,45 @@
 
 .form-btn {
   width: 100%;
+  color: white;
+}
+
+.form-btn:hover {
+  color: white;
+}
+
+.input-custom {
+  max-width: 250px;
+  margin-bottom: 0;
+}
+
+.slots-container {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.time-slots {
+  border-radius: 4px;
+  border: 1px solid var(--dark-primary);
+  background: white;
+  display: flex;
+  justify-content: center;
+  padding: 8px;
+  width: 85px;
+  color: var(--darker-primary);
+  margin: 0 10px 10px 0;
+  cursor: pointer;
+}
+
+
+.time-slots.active {
+  background: var(--light-primary);
+}
+
+.time-slots:hover {
+  background: var(--light-primary);
+}
+
+.time-slots.booked {
+  display: none;
 }
