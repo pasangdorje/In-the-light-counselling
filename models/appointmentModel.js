@@ -12,6 +12,14 @@ const schema = mongoose.Schema(
       ref: "User",
       required: true,
     },
+    subject: {
+      type: String,
+      required: true,
+    },
+    type: {
+      type: String,
+      required: true,
+    },
     date: {
       type: String,
       required: true,

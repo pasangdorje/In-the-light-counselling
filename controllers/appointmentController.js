@@ -2,26 +2,57 @@ const Appointment = require("../models/appointmentModel");
 const Notification = require("../models/notificationModel");
 const User = require("../models/userModel");
 
+// const getallappointments = async (req, res) => {
+//   try {
+//     const keyword = req.query.search
+//       ? {
+//           $or: [{ userId: req.query.search }, { counsellorId: req.query.search }],
+//         }
+//       : {};
+
+//     const appointments = await Appointment.find(keyword)
+//       .populate("counsellorId")
+//       .populate("userId");
+//     return res.send(appointments);
+//   } catch (error) {
+//     res.status(500).send("Unable to get apponintments");
+//   }
+// };
+
 const getallappointments = async (req, res) => {
   try {
-    const keyword = req.query.search
+    const { search, date } = req.query;
+
+    const keyword = search
       ? {
-          $or: [{ userId: req.query.search }, { counsellorId: req.query.search }],
+          $or: [{ userId: search }, { counsellorId: search }],
         }
       : {};
 
-    const appointments = await Appointment.find(keyword)
+    let dateFilter = {};
+    if (date) {
+      dateFilter = {
+        date: date, 
+      };
+    }
+
+    const filters = [keyword, dateFilter].filter(filter => Object.keys(filter).length > 0);
+
+    const appointments = await Appointment.find({ $and: filters })
       .populate("counsellorId")
       .populate("userId");
     return res.send(appointments);
   } catch (error) {
-    res.status(500).send("Unable to get apponintments");
+    res.status(500).send("Unable to get appointments");
   }
 };
+
 
 const bookappointment = async (req, res) => {
   try {
     const appointment = await Appointment({
+      subject: req.body.subject,
+      type: req.body.type,
       date: req.body.date,
       time: req.body.time,
       counsellorId: req.body.counsellorId,
