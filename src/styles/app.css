@@ -49,7 +49,6 @@ h6 {
 }
 
 p {
-  color: var(--light-text-color);
   font-size: 0.9375rem;
   line-height: 1.5;
 }
@@ -141,6 +140,18 @@ p {
 .page-title .page-title-icon i {
   font-size: 0.9375rem;
   line-height: 36px;
+}
+
+/* Material ui pagination */
+p.MuiTablePagination-selectLabel,
+p.MuiTablePagination-displayedRows {
+  font-size: 0.9375rem;
+  line-height: 1.5;
+  font-weight: 500;
+}
+
+div.MuiInputBase-root {
+  margin-top: 3px;
 }
 
 @media (max-width: 1024px) {

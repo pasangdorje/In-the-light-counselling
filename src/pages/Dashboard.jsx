@@ -6,6 +6,7 @@ import Sidebar from "../components/dashboard/Sidebar";
 import Users from "../components/dashboard/Users";
 import Profile from "./Profile";
 import AdminProfile from "../components/dashboard/AdminProfile";
+import AdminDashboard from "../components/dashboard/AdminDashboard";
 
 const Dashboard = (props) => {
   const { type } = props;
@@ -14,7 +15,9 @@ const Dashboard = (props) => {
       <section className="layout-section">
         <div className="layout-container">
           <Sidebar />
-          {type === "users" ? (
+          {type === "home" ? (
+            <AdminDashboard />
+          ) : type === "users" ? (
             <Users />
           ) : type === "counsellors" ? (
             <AdminCounsellors />

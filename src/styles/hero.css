@@ -4,7 +4,7 @@
     justify-content: center;
     align-items: center;
     gap: 24px;
-    background: linear-gradient(to right, #ECF2FF, #FBFCFF);
+    background: linear-gradient(to right, #dd98fc24, #efcdfe1a);
 }
 /* Text section */
 .text-section {
@@ -99,8 +99,8 @@
     border-radius: 50%;
     background-color: var(--darker-primary);
     position: fixed;
-    bottom: 50px;
-    right: 50px;
+    bottom: 100px;
+    right: 35px;
     font-size: 24px;
     z-index: 20;
     cursor: pointer;

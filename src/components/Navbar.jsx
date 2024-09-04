@@ -41,7 +41,9 @@ function Navbar() {
     navigate("/login");
   };
 
-  const handleChatBtnClick = () => {};
+  const handleSignupClick = () => {
+    navigate("/register");
+  };
 
   return (
     <div className="navbar-section">
@@ -155,9 +157,9 @@ function Navbar() {
             <button
               className="navbar-btn"
               type="button"
-              onClick={handleChatBtnClick}
+              onClick={handleSignupClick}
             >
-              <FontAwesomeIcon icon={faCommentDots} /> Chat
+              Signup
             </button>
           </>
         ) : (
@@ -270,9 +272,9 @@ function Navbar() {
                 <button
                   className="navbar-btn"
                   type="button"
-                  onClick={handleChatBtnClick}
+                  onClick={handleSignupClick}
                 >
-                  <FontAwesomeIcon icon={faCommentDots} /> Chat
+                  Signup
                 </button>
               </li>
             </>

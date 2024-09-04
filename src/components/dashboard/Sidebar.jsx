@@ -3,7 +3,7 @@ import {
   FaHome,
   FaList,
   FaUser,
-  FaUserMd,
+  FaUserTie,
   FaUsers,
   FaEnvelope,
 } from "react-icons/fa";
@@ -22,7 +22,7 @@ const Sidebar = () => {
   const sidebar = [
     {
       name: "Home",
-      path: "/",
+      path: "/dashboard/home",
       icon: <FaHome />,
     },
     {
@@ -33,7 +33,7 @@ const Sidebar = () => {
     {
       name: "Counsellors",
       path: "/dashboard/counsellors",
-      icon: <FaUserMd />,
+      icon: <FaUserTie />,
     },
     {
       name: "Appointments",

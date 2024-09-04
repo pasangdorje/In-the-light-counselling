@@ -9,6 +9,7 @@ import React, { lazy, Suspense } from "react";
 import Loading from "./components/Loading";
 import { ROUTES } from "./constants/routePaths";
 import "@mdi/font/css/materialdesignicons.min.css";
+import RegisterCounsellor from "./pages/RegisterCounsellor";
 
 const Home = lazy(() => import("./pages/Home"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
@@ -35,6 +36,10 @@ function App() {
                 <Register />
               </Public>
             }
+          />
+          <Route
+            path={ROUTES.REGISTER_COUNSELLOR}
+            element={<RegisterCounsellor />}
           />
           <Route path={ROUTES.COUNSELLORS} element={<Counsellors />} />
           <Route
@@ -67,6 +72,14 @@ function App() {
               <Protected>
                 <Profile />
               </Protected>
+            }
+          />
+          <Route
+            path={ROUTES.DASHBOARD.HOME}
+            element={
+              <Admin>
+                <Dashboard type={"home"} />
+              </Admin>
             }
           />
           <Route

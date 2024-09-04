@@ -17,13 +17,11 @@ function Footer() {
               counselling services within minutes.
             </p>
           </div>
-
-
         </div>
 
         <div className="ft-list">
           <p className="ft-list-title">Services</p>
-          <ul className="ft-list-items">
+          <ul className="ft-list-items p-0">
             <li>
               <a href="#services">Emergency Support</a>
             </li>
@@ -38,7 +36,7 @@ function Footer() {
 
         <div className="ft-list">
           <p className="ft-list-title">Legal</p>
-          <ul className="ft-list-items">
+          <ul className="ft-list-items p-0">
             <li>
               <Link to={"/legal"}>General Information</Link>
             </li>
@@ -52,7 +50,7 @@ function Footer() {
         </div>
         <div className="ft-list">
           <p className="ft-list-title">Support</p>
-          <ul className="ft-list-items">
+          <ul className="ft-list-items p-0">
             <li>
               <Link to={"/support"}>Contact Us</Link>
             </li>
@@ -64,7 +62,7 @@ function Footer() {
       </div>
 
       <div className="ft-copyright">
-        <p>© 2024-2025 Inlight Counselling. All rights reserved.</p>
+        <p>© 2024-2025 In the Light Counselling. All rights reserved.</p>
 
         <ul className="ft-social-links">
           <li>

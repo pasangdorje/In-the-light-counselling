@@ -71,12 +71,12 @@ const BookAppointment = ({ setModalOpen, ele }) => {
 
   const fetchCounsellorAppointments = async () => {
     try {
-      const data = await fetchData("/appointment/getallappointments", {
-        search: ele.userId,
+      const res = await fetchData("/appointment/getallappointments", {
+        search: ele.userId._id,
         date: formik.values.date,
       });
 
-      getAvailableAppointmentSlots(data);
+      getAvailableAppointmentSlots(res.data);
     } catch (error) {}
   };
 

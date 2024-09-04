@@ -7,7 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import Empty from "../Empty";
 import fetchData from "../../helper/apiCall";
 import "../../styles/user.css";
-import { FaUserMd } from "react-icons/fa";
+import { FaUserTie } from "react-icons/fa";
+import useTablePagination from "../hooks/useTablePagination";
+import { TablePagination } from "@mui/material";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
@@ -16,18 +18,35 @@ const AdminCounsellors = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.root);
 
+  const {
+    page,
+    totalRows,
+    setTotalRows,
+    rowsPerPage,
+    handleChangePage,
+    handleChangeRowsPerPage,
+  } = useTablePagination();
+
   const getAllCounsellors = async (e) => {
     try {
       dispatch(setLoading(true));
-      const temp = await fetchData(`/counsellor/getallcounsellors`);
-      setCounsellors(temp);
+      const res = await fetchData(`/counsellor/getpaginatedcounsellors`, {
+        page: page + 1,
+        limit: rowsPerPage,
+      });
+      setCounsellors(res.data);
+      setTotalRows(res.totalRows);
+    } catch (error) {
+    } finally {
       dispatch(setLoading(false));
-    } catch (error) {}
+    }
   };
 
   const deleteUser = async (userId) => {
     try {
-      const confirm = window.confirm("Are you sure you want to delete?");
+      const confirm = window.confirm(
+        "Are you sure you want to remove this counsellor?"
+      );
       if (confirm) {
         await toast.promise(
           axios.put(
@@ -64,8 +83,8 @@ const AdminCounsellors = () => {
         <section className="user-section">
           <h3 className="page-title">
             <span className="page-title-icon bg-gradient-primary text-white me-2">
-              <FaUserMd />
-            </span>{" "}
+              <FaUserTie />
+            </span>
             All Counsellors
           </h3>
           {counsellors.length > 0 ? (
@@ -89,7 +108,7 @@ const AdminCounsellors = () => {
                   {counsellors?.map((ele, i) => {
                     return (
                       <tr key={ele?._id}>
-                        <td>{i + 1}</td>
+                        <td className="text-center">{i + 1}</td>
                         <td>
                           <img
                             className="user-table-pic"
@@ -101,9 +120,9 @@ const AdminCounsellors = () => {
                         <td>{ele?.userId?.lastname}</td>
                         <td>{ele?.userId?.email}</td>
                         <td>{ele?.userId?.phone}</td>
-                        <td>{ele?.experience}</td>
+                        <td className="text-center">{ele?.experience}</td>
                         <td>{ele?.specialization}</td>
-                        <td>{ele?.fees}</td>
+                        <td>$ {ele?.fees}</td>
                         <td className="select">
                           <button
                             className="btn user-btn"
@@ -119,6 +138,21 @@ const AdminCounsellors = () => {
                   })}
                 </tbody>
               </table>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, 100]}
+                page={page}
+                component="div"
+                count={totalRows}
+                rowsPerPage={rowsPerPage}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                sx={{
+                  "& p": {
+                    marginTop: "auto",
+                    marginBottom: "auto",
+                  },
+                }}
+              />
             </div>
           ) : (
             <Empty />

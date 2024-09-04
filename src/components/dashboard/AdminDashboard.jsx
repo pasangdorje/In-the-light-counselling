@@ -1,30 +1,18 @@
 import React from "react";
-import DoughnutChart from "../../charts/DoughnutChart";
-import LineChart from "../../charts/LineChart";
-import Layout from "../Layout";
+import DoughnutChart from "../charts/DoughnutChart";
+import LineChart from "../charts/LineChart";
+import { FaHome } from "react-icons/fa";
 
 function AdminDashboard() {
   return (
-    <Layout>
-      <div className="main-panel">
-        <div className="content-wrapper">
-          <div className="page-header">
-            <h3 className="page-title">
-              <span className="page-title-icon bg-gradient-primary text-white me-2">
-                <i className="mdi mdi-home" />
-              </span>{" "}
-              Dashboard
-            </h3>
-            <nav aria-label="breadcrumb">
-              <ul className="breadcrumb">
-                <li className="breadcrumb-item active" aria-current="page">
-                  <span />
-                  Overview{" "}
-                  <i className="mdi mdi-alert-circle-outline icon-sm text-primary align-middle" />
-                </li>
-              </ul>
-            </nav>
-          </div>
+    <section className="user-section">
+      <h3 className="page-title">
+        <span className="page-title-icon bg-gradient-primary text-white me-2">
+          <FaHome />
+        </span>
+        Dashboard
+      </h3>
+      <div className="user-container">
           <div className="row">
             <div className="col-md-4 stretch-card grid-margin">
               <div className="card bg-gradient-danger card-img-holder text-white">
@@ -200,20 +188,8 @@ function AdminDashboard() {
               </div>
             </div>
           </div>
-        </div>
-        <footer className="footer">
-          <div className="d-sm-flex justify-content-center justify-content-sm-between">
-            <span className="text-muted text-center text-sm-left d-block d-sm-inline-block">
-              Copyright © 2024{" "}
-              <a href="#" target="_blank">
-                In The Light Counselling
-              </a>
-              . All rights reserved.
-            </span>
-          </div>
-        </footer>
       </div>
-    </Layout>
+    </section>
   );
 }
 

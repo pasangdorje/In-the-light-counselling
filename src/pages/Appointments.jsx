@@ -11,27 +11,42 @@ import axios from "axios";
 import toast from "react-hot-toast";
 import "../styles/user.css";
 import { getFormattedTime } from "../utils/moment";
+import { TablePagination } from "@mui/material";
+import useTablePagination from "../components/hooks/useTablePagination";
 
 const Appointments = () => {
   const [appointments, setAppointments] = useState([]);
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.root);
   const { userId } = jwt_decode(localStorage.getItem("token"));
+  const {
+    page,
+    totalRows,
+    setTotalRows,
+    rowsPerPage,
+    handleChangePage,
+    handleChangeRowsPerPage,
+  } = useTablePagination();
 
   const getAllAppoint = async (e) => {
     try {
       dispatch(setLoading(true));
-      const temp = await fetchData(
-        `/appointment/getallappointments?search=${userId}`
-      );
-      setAppointments(temp);
+      const res = await fetchData("/appointment/getallappointments", {
+        search: userId,
+        page: page + 1,
+        limit: rowsPerPage,
+      });
+      setAppointments(res.data);
+      setTotalRows(res.totalRows);
+    } catch (error) {
+    } finally {
       dispatch(setLoading(false));
-    } catch (error) {}
+    }
   };
 
   useEffect(() => {
     getAllAppoint();
-  }, []);
+  }, [page, rowsPerPage]);
 
   const complete = async (ele) => {
     try {
@@ -40,8 +55,9 @@ const Appointments = () => {
           "/appointment/completed",
           {
             appointid: ele?._id,
+            userId: ele?.userId?._id,
             counsellorId: ele?.counsellorId?._id,
-            counsellorname: `${ele?.userId?.firstname} ${ele?.userId?.lastname}`,
+            counsellorname: `${ele?.counsellorId?.firstname} ${ele?.counsellorId?.lastname}`,
           },
           {
             headers: {
@@ -127,6 +143,21 @@ const Appointments = () => {
                   })}
                 </tbody>
               </table>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, 100]}
+                page={page}
+                component="div"
+                count={totalRows}
+                rowsPerPage={rowsPerPage}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                sx={{
+                  "& p": {
+                    marginTop: "auto",
+                    marginBottom: "auto",
+                  },
+                }}
+              />
             </div>
           ) : (
             <Empty />

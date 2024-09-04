@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import Empty from "../Empty";
 import fetchData from "../../helper/apiCall";
 import { FaUsers } from "react-icons/fa";
+import useTablePagination from "../hooks/useTablePagination";
+import { TablePagination } from "@mui/material";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
@@ -15,13 +17,28 @@ const Users = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.root);
 
+  const {
+    page,
+    totalRows,
+    setTotalRows,
+    rowsPerPage,
+    handleChangePage,
+    handleChangeRowsPerPage,
+  } = useTablePagination();
+
   const getAllUsers = async (e) => {
     try {
       dispatch(setLoading(true));
-      const temp = await fetchData(`/user/getallusers`);
-      setUsers(temp);
+      const res = await fetchData(`/user/getallusers`, {
+        page: page + 1,
+        limit: rowsPerPage,
+      });
+      setUsers(res.data);
+      setTotalRows(res.totalRows);
+    } catch (error) {
+    } finally {
       dispatch(setLoading(false));
-    } catch (error) {}
+    }
   };
 
   const deleteUser = async (userId) => {
@@ -112,6 +129,21 @@ const Users = () => {
                   })}
                 </tbody>
               </table>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, 100]}
+                page={page}
+                component="div"
+                count={totalRows}
+                rowsPerPage={rowsPerPage}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                sx={{
+                  "& p": {
+                    marginTop: "auto",
+                    marginBottom: "auto",
+                  },
+                }}
+              />
             </div>
           ) : (
             <Empty />

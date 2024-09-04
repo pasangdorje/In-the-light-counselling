@@ -5,7 +5,6 @@ import Navbar from "../components/Navbar";
 import Info from "../components/Info";
 import AboutUs from "../components/AboutUs";
 import CounsellorsList from "../components/CounsellorsList";
-import Chatbot from "../components/chatbot/Chatbot";
 
 const Home = () => {
   return (
@@ -16,7 +15,6 @@ const Home = () => {
       <AboutUs />
       <CounsellorsList />
       <Footer />
-      <Chatbot />
     </div>
   );
 };
