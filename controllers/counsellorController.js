@@ -22,6 +22,51 @@ const getallcounsellors = async (req, res) => {
   }
 };
 
+const getpaginatedcounsellors = async (req, res) => {
+  try {
+    const { search, date, page = 1, limit = 10 } = req.query;
+
+    const keyword = search
+      ? {
+          $or: [{ userId: search }],
+        }
+      : {};
+
+    let dateFilter = {};
+    if (date) {
+      dateFilter = { date };
+    }
+
+    // Combine the keyword and date filters
+    const filters = [keyword, dateFilter].filter(
+      (filter) => Object.keys(filter).length > 0
+    );
+
+    // Calculate the number of documents to skip based on the current page
+    const skip = (page - 1) * limit;
+
+    // Fetch counsellors based on the combined filter, with pagination
+    const counsellors = await Counsellor.find({ isCounsellor: true })
+      .find({ $and: filters })
+      .skip(skip)
+      .limit(parseInt(limit))
+      .populate("userId");
+
+    // Count total counsellors that match the filters (without pagination)
+    const totalCounsellors = await Counsellor.countDocuments({ $and: filters });
+
+    // Return the counsellors along with pagination data
+    return res.send({
+      totalRows: totalCounsellors,
+      totalPages: Math.ceil(totalCounsellors / limit),
+      currentPage: parseInt(page),
+      data: counsellors,
+    });
+  } catch (error) {
+    res.status(500).send("Unable to get counsellors");
+  }
+};
+
 const getnotcounsellors = async (req, res) => {
   try {
     const docs = await Counsellor.find({ isCounsellor: false })
@@ -43,7 +88,10 @@ const applyforcounsellor = async (req, res) => {
       return res.status(400).send("Application already exists");
     }
 
-    const counsellor = Counsellor({ ...req.body.formDetails, userId: req.locals });
+    const counsellor = Counsellor({
+      ...req.body.formDetails,
+      userId: req.locals,
+    });
     const result = await counsellor.save();
 
     return res.status(201).send("Application submitted successfully");
@@ -118,6 +166,7 @@ const deletecounsellor = async (req, res) => {
 
 module.exports = {
   getallcounsellors,
+  getpaginatedcounsellors,
   getnotcounsellors,
   deletecounsellor,
   applyforcounsellor,

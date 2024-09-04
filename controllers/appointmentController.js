@@ -1,27 +1,9 @@
 const Appointment = require("../models/appointmentModel");
 const Notification = require("../models/notificationModel");
 const User = require("../models/userModel");
-
-// const getallappointments = async (req, res) => {
-//   try {
-//     const keyword = req.query.search
-//       ? {
-//           $or: [{ userId: req.query.search }, { counsellorId: req.query.search }],
-//         }
-//       : {};
-
-//     const appointments = await Appointment.find(keyword)
-//       .populate("counsellorId")
-//       .populate("userId");
-//     return res.send(appointments);
-//   } catch (error) {
-//     res.status(500).send("Unable to get apponintments");
-//   }
-// };
-
 const getallappointments = async (req, res) => {
   try {
-    const { search, date } = req.query;
+    const { search, date, page = 1, limit = 10 } = req.query;
 
     const keyword = search
       ? {
@@ -31,17 +13,32 @@ const getallappointments = async (req, res) => {
 
     let dateFilter = {};
     if (date) {
-      dateFilter = {
-        date: date, 
-      };
+      dateFilter = { date };
     }
 
+    // Combine the keyword and date filters
     const filters = [keyword, dateFilter].filter(filter => Object.keys(filter).length > 0);
 
+    // Calculate the number of documents to skip based on the current page
+    const skip = (page - 1) * limit;
+
+    // Fetch appointments based on the combined filter, with pagination
     const appointments = await Appointment.find({ $and: filters })
       .populate("counsellorId")
-      .populate("userId");
-    return res.send(appointments);
+      .populate("userId")
+      .skip(skip)
+      .limit(parseInt(limit));
+
+    // Count total appointments that match the filters (without pagination)
+    const totalAppointments = await Appointment.countDocuments({ $and: filters });
+
+    // Return the appointments along with pagination data
+    return res.send({
+      totalRows: totalAppointments,
+      totalPages: Math.ceil(totalAppointments / limit),
+      currentPage: parseInt(page),
+      data: appointments,
+    });
   } catch (error) {
     res.status(500).send("Unable to get appointments");
   }
@@ -91,13 +88,13 @@ const completed = async (req, res) => {
     );
 
     const usernotification = Notification({
-      userId: req.locals,
+      userId: req.body.userId,
       content: `Your appointment with ${req.body.counsellorname} has been completed`,
     });
 
     await usernotification.save();
 
-    const user = await User.findById(req.locals);
+    const user = await User.findById(req.body.userId);
 
     const counsellornotification = Notification({
       userId: req.body.counsellorId,

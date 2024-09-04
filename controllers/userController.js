@@ -15,10 +15,38 @@ const getuser = async (req, res) => {
 
 const getallusers = async (req, res) => {
   try {
-    const users = await User.find()
+    const { date, page = 1, limit = 10 } = req.query;
+
+    let dateFilter = {};
+    if (date) {
+      dateFilter = { date };
+    }
+
+    // Combine the keyword and date filters
+    const filters = [dateFilter].filter(
+      (filter) => Object.keys(filter).length > 0
+    );
+
+    // Calculate the number of documents to skip based on the current page
+    const skip = (page - 1) * limit;
+
+    // Fetch users based on the combined filter, with pagination
+    const users = await User.find({ $and: filters })
       .find({ _id: { $ne: req.locals } })
+      .skip(skip)
+      .limit(parseInt(limit))
       .select("-password");
-    return res.send(users);
+
+    // Count total users that match the filters (without pagination)
+    const totalUsers = await User.countDocuments({ $and: filters });
+
+    // Return the users along with pagination data
+    return res.send({
+      totalRows: totalUsers,
+      totalPages: Math.ceil(totalUsers / limit),
+      currentPage: parseInt(page),
+      data: users,
+    });
   } catch (error) {
     res.status(500).send("Unable to get all users");
   }
