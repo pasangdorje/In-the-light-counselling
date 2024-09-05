@@ -109,7 +109,7 @@ const AdminAppointments = () => {
                   {appointments?.map((ele, i) => {
                     return (
                       <tr key={ele?._id}>
-                        <td>{i + 1}</td>
+                        <td className="text-center">{i + 1}</td>
                         <td>
                           {ele?.counsellorId?.firstname +
                             " " +

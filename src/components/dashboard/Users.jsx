@@ -87,7 +87,7 @@ const Users = () => {
               <table className="table">
                 <thead>
                   <tr>
-                    <th>S.No</th>
+                    <th className="text-center">S.No</th>
                     <th>Pic</th>
                     <th>First Name</th>
                     <th>Last Name</th>
@@ -101,7 +101,7 @@ const Users = () => {
                   {users?.map((ele, i) => {
                     return (
                       <tr key={ele?._id}>
-                        <td>{i + 1}</td>
+                        <td className="text-center">{i + 1}</td>
                         <td>
                           <img
                             className="user-table-pic"

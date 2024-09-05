@@ -20,7 +20,7 @@ function AdminDashboard() {
                   <img
                     src="assets/images/dashboard/circle.svg"
                     className="card-img-absolute"
-                    alt="circle-image"
+                    alt="profile"
                   />
                   <h4 className="font-weight-normal mb-3">
                     Weekly Sales{" "}
@@ -37,7 +37,7 @@ function AdminDashboard() {
                   <img
                     src="assets/images/dashboard/circle.svg"
                     className="card-img-absolute"
-                    alt="circle-image"
+                    alt="profile"
                   />
                   <h4 className="font-weight-normal mb-3">
                     Weekly Orders{" "}
@@ -54,7 +54,7 @@ function AdminDashboard() {
                   <img
                     src="assets/images/dashboard/circle.svg"
                     className="card-img-absolute"
-                    alt="circle-image"
+                    alt="profile"
                   />
                   <h4 className="font-weight-normal mb-3">
                     Visitors Online{" "}

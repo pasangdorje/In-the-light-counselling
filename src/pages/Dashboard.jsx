@@ -4,7 +4,6 @@ import AdminAppointments from "../components/dashboard/AdminAppointments";
 import AdminCounsellors from "../components/dashboard/AdminCounsellors";
 import Sidebar from "../components/dashboard/Sidebar";
 import Users from "../components/dashboard/Users";
-import Profile from "./Profile";
 import AdminProfile from "../components/dashboard/AdminProfile";
 import AdminDashboard from "../components/dashboard/AdminDashboard";
 

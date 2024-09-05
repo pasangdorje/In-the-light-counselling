@@ -8,6 +8,8 @@ import Empty from "../Empty";
 import fetchData from "../../helper/apiCall";
 import "../../styles/user.css";
 import { FaEnvelope } from "react-icons/fa";
+import useTablePagination from "../hooks/useTablePagination";
+import { TablePagination } from "@mui/material";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
@@ -16,13 +18,28 @@ const AdminApplications = () => {
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.root);
 
+  const {
+    page,
+    totalRows,
+    setTotalRows,
+    rowsPerPage,
+    handleChangePage,
+    handleChangeRowsPerPage,
+  } = useTablePagination();
+
   const getAllApp = async (e) => {
     try {
       dispatch(setLoading(true));
-      const temp = await fetchData(`/counsellor/getnotcounsellors`);
-      setApplications(temp);
+      const res = await fetchData(`/counsellor/getnotcounsellors`, {
+        page: page + 1,
+        limit: rowsPerPage,
+      });
+      setApplications(res.data);
+      setTotalRows(res.totalRows);
+    } catch (error) {
+    } finally {
       dispatch(setLoading(false));
-    } catch (error) {}
+    }
   };
 
   const acceptUser = async (userId) => {
@@ -98,11 +115,11 @@ const AdminApplications = () => {
             All Applications
           </h3>
           {applications.length > 0 ? (
-            <div className="user-container">
-              <table>
+            <div className="user-container appointments mt-4">
+              <table className="table">
                 <thead>
                   <tr>
-                    <th>S.No</th>
+                    <th className="text-center">S.No</th>
                     <th>Pic</th>
                     <th>First Name</th>
                     <th>Last Name</th>
@@ -118,7 +135,7 @@ const AdminApplications = () => {
                   {applications?.map((ele, i) => {
                     return (
                       <tr key={ele?._id}>
-                        <td>{i + 1}</td>
+                        <td className="text-center">{i + 1}</td>
                         <td>
                           <img
                             className="user-table-pic"
@@ -159,6 +176,21 @@ const AdminApplications = () => {
                   })}
                 </tbody>
               </table>
+              <TablePagination
+                rowsPerPageOptions={[5, 10, 25, 100]}
+                page={page}
+                component="div"
+                count={totalRows}
+                rowsPerPage={rowsPerPage}
+                onPageChange={handleChangePage}
+                onRowsPerPageChange={handleChangeRowsPerPage}
+                sx={{
+                  "& p": {
+                    marginTop: "auto",
+                    marginBottom: "auto",
+                  },
+                }}
+              />
             </div>
           ) : (
             <Empty />

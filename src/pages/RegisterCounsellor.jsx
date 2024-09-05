@@ -5,13 +5,51 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
+import { ROUTES } from "../constants/routePaths";
+import jwt_decode from "jwt-decode";
+import { useDispatch } from "react-redux";
+import { setUserInfo } from "../redux/reducers/rootSlice";
+import fetchData from "../helper/apiCall";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 function RegisterCounsellor() {
   const [actionInProgress, setActionInProgress] = useState(false);
+  const dispatch = useDispatch();
 
   const navigate = useNavigate();
+
+  const getUser = async (id) => {
+    try {
+      const userData = await fetchData(`/user/getuser/${id}`);
+      dispatch(setUserInfo(userData));
+      navigate(ROUTES.APPLY_FOR_COUNSELLOR);
+    } catch (error) {
+      return error;
+    }
+  };
+
+  const login = async ({ email, password }) => {
+    try {
+      const { data } = await toast.promise(
+        axios.post("/user/login", {
+          email,
+          password,
+        }),
+        {
+          pending: "Logging in...",
+          success: "Login successfully",
+          error: "Unable to login user",
+          loading: "Logging user...",
+        }
+      );
+      localStorage.setItem("token", data.token);
+      dispatch(setUserInfo(jwt_decode(data.token).userId));
+      getUser(jwt_decode(data.token).userId);
+    } catch (error) {
+      return error;
+    }
+  };
 
   const formik = useFormik({
     initialValues: {
@@ -60,25 +98,22 @@ function RegisterCounsellor() {
           gender: values.gender,
           phone: values.phone,
           address: values.address,
-          termsAccepted: values.termsAccepted
+          isCounsellorAccount: true,
+          termsAccepted: values.termsAccepted,
         };
-        await toast.promise(
-          axios.post("/user/register", data),
-          {
-            pending: "Registering user...",
-            success: "User registered successfully",
-            error: "Unable to register user",
-            loading: "Registering user...",
-          }
-        );
-        navigate("/login");
+        await toast.promise(axios.post("/user/register", data), {
+          pending: "Registering user...",
+          success: "User registered successfully",
+          loading: "Registering user...",
+        });
+        login({ email: data.email, password: data.password });
       } catch (error) {
         if (
           error.response &&
           error.response.status >= 400 &&
           error.response.status <= 500
         ) {
-          toast.error(error.response.data.message);
+          toast.error(error.response.data);
         }
       } finally {
         setActionInProgress(false);
@@ -89,7 +124,7 @@ function RegisterCounsellor() {
   return (
     <div className="signup-container">
       <h2>
-        <center>Sign up</center>
+        <center>Register Counsellor</center>
       </h2>
       <br />
       <form onSubmit={formik.handleSubmit}>
@@ -105,7 +140,7 @@ function RegisterCounsellor() {
             required
           />
           {formik.touched.firstname && formik.errors.firstname ? (
-            <div className="error">{formik.errors.firstname}</div>
+            <div className="error-msg">{formik.errors.firstname}</div>
           ) : null}
         </div>
         <div className="input-group">
@@ -120,7 +155,7 @@ function RegisterCounsellor() {
             required
           />
           {formik.touched.lastname && formik.errors.lastname ? (
-            <div className="error">{formik.errors.lastname}</div>
+            <div className="error-msg">{formik.errors.lastname}</div>
           ) : null}
         </div>
         <div className="input-group">
@@ -135,7 +170,7 @@ function RegisterCounsellor() {
             required
           />
           {formik.touched.email && formik.errors.email ? (
-            <div className="error">{formik.errors.email}</div>
+            <div className="error-msg">{formik.errors.email}</div>
           ) : null}
         </div>
         <div className="input-group">
@@ -150,7 +185,7 @@ function RegisterCounsellor() {
             required
           />
           {formik.touched.password && formik.errors.password ? (
-            <div className="error">{formik.errors.password}</div>
+            <div className="error-msg">{formik.errors.password}</div>
           ) : null}
         </div>
         <div className="input-group">
@@ -165,7 +200,7 @@ function RegisterCounsellor() {
             required
           />
           {formik.touched.rePassword && formik.errors.rePassword ? (
-            <div className="error">{formik.errors.rePassword}</div>
+            <div className="error-msg">{formik.errors.rePassword}</div>
           ) : null}
         </div>
         <div className="input-group">
@@ -184,7 +219,7 @@ function RegisterCounsellor() {
             <option value="other">Other</option>
           </select>
           {formik.touched.gender && formik.errors.gender ? (
-            <div className="error">{formik.errors.gender}</div>
+            <div className="error-msg">{formik.errors.gender}</div>
           ) : null}
         </div>
         <div className="input-group">
@@ -199,7 +234,7 @@ function RegisterCounsellor() {
             required
           />
           {formik.touched.phone && formik.errors.phone ? (
-            <div className="error">{formik.errors.phone}</div>
+            <div className="error-msg">{formik.errors.phone}</div>
           ) : null}
         </div>
         <div className="input-group">
@@ -214,7 +249,7 @@ function RegisterCounsellor() {
             required
           />
           {formik.touched.address && formik.errors.address ? (
-            <div className="error">{formik.errors.address}</div>
+            <div className="error-msg">{formik.errors.address}</div>
           ) : null}
         </div>
         <div className="input-group">
@@ -232,7 +267,7 @@ function RegisterCounsellor() {
             Privacy Policy.
           </label>
           {formik.touched.termsAccepted && formik.errors.termsAccepted ? (
-            <div className="error">{formik.errors.termsAccepted}</div>
+            <div className="error-msg">{formik.errors.termsAccepted}</div>
           ) : null}
         </div>
         <button className="signup-btn" type="submit">

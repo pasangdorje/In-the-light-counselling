@@ -83,15 +83,17 @@ function Navbar() {
 
         {token && !user.isAdmin && (
           <>
-            <li>
-              <NavLink
-                className="navbar-links"
-                activeClassName="active"
-                to={"/counsellors"}
-              >
-                Counsellors
-              </NavLink>
-            </li>
+            {!user.isCounsellorAccount && (
+              <li>
+                <NavLink
+                  className="navbar-links"
+                  activeClassName="active"
+                  to={"/counsellors"}
+                >
+                  Counsellors
+                </NavLink>
+              </li>
+            )}
             <li>
               <NavLink
                 className="navbar-links"

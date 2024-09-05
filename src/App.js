@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Toaster } from "react-hot-toast";
-import { Protected, Public, Admin } from "./middleware/route";
+import { Protected, Public, Admin, Counsellor } from "./middleware/route";
 import React, { lazy, Suspense } from "react";
 import Loading from "./components/Loading";
 import { ROUTES } from "./constants/routePaths";
@@ -61,9 +61,9 @@ function App() {
           <Route
             path={ROUTES.APPLY_FOR_COUNSELLOR}
             element={
-              <Protected>
+              <Counsellor>
                 <ApplyCounsellor />
-              </Protected>
+              </Counsellor>
             }
           />
           <Route

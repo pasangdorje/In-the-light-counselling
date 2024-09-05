@@ -27,70 +27,68 @@ const ApplyCounsellor = () => {
   const btnClick = async (e) => {
     e.preventDefault();
     try {
-      await toast.promise(
-        axios.post(
-          "/counsellor/applyforcounsellor",
-          {
-            formDetails,
-          },
-          {
-            headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-          }
-        ),
+      await axios.post(
+        "/counsellor/applyforcounsellor",
         {
-          success: "Counsellor application sent successfully",
-          error: "Unable to send Counsellor application",
-          loading: "Sending counsellor application...",
+          formDetails,
+        },
+        {
+          headers: {
+            Authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
         }
       );
 
       navigate("/");
     } catch (error) {
-      return error;
+      if (
+        error.response &&
+        error.response.status >= 400 &&
+        error.response.status <= 500
+      ) {
+        toast.error(error.response.data);
+      }
     }
   };
 
   return (
     <>
       <Navbar />
-      <section
-        className="register-section flex-center apply-counsellor"
-        id="contact"
-      >
-        <div className="register-container flex-center contact">
+      <section className="register-section flex-center">
+        <div className="profile-container flex-center">
           <h2 className="form-heading">Apply for Counsellor</h2>
-          <form className="register-form ">
-            <input
-              type="text"
-              name="specialization"
-              className="form-input"
-              placeholder="Enter your specialization"
-              value={formDetails.specialization}
-              onChange={inputChange}
-            />
-            <input
-              type="number"
-              name="experience"
-              className="form-input"
-              placeholder="Enter your experience (in years)"
-              value={formDetails.experience}
-              onChange={inputChange}
-            />
-            <input
-              type="number"
-              name="fees"
-              className="form-input"
-              placeholder="Enter your fees  (in dollars)"
-              value={formDetails.fees}
-              onChange={inputChange}
-            />
-            <button
-              type="submit"
-              className="btn form-btn"
-              onClick={btnClick}
-            >
+          <form className="register-form w-50">
+            <div className="form-same-row input-group">
+              <input
+                type="text"
+                name="specialization"
+                className="form-input"
+                placeholder="Enter your specialization"
+                value={formDetails.specialization}
+                onChange={inputChange}
+              />
+            </div>
+            <div className="form-same-row input-group">
+              <input
+                type="number"
+                name="experience"
+                className="form-input"
+                placeholder="Enter your experience (in years)"
+                value={formDetails.experience}
+                onChange={inputChange}
+              />
+            </div>
+            <div className="form-same-row input-group">
+              <input
+                type="number"
+                name="fees"
+                className="form-input"
+                placeholder="Enter your fees  (in dollars)"
+                value={formDetails.fees}
+                onChange={inputChange}
+              />
+            </div>
+            <button type="submit" className="btn form-btn" onClick={btnClick}>
               apply
             </button>
           </form>

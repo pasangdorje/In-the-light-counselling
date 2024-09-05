@@ -4,11 +4,22 @@ import profile1 from "../assets/profile-1.png";
 import profile2 from "../assets/profile-2.png";
 import profile3 from "../assets/profile-3.png";
 import profile4 from "../assets/profile-4.png";
+import jwtDecode from "jwt-decode";
 import "../styles/counsellorsList.css";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faCalendarCheck } from "@fortawesome/free-solid-svg-icons";
+import { useNavigate } from "react-router-dom";
+import { ROUTES } from "../constants/routePaths";
 
 function CounsellorsList() {
+  const navigate = useNavigate();
+  const user = localStorage.getItem("token")
+    ? jwtDecode(localStorage.getItem("token"))
+    : null;
+
+  const handleJoinTeamClick = () => {
+    if (user?.isCounsellorAccount) navigate(ROUTES.APPLY_FOR_COUNSELLOR);
+    else navigate(ROUTES.REGISTER_COUNSELLOR);
+  };
+
   return (
     <div className="counsellor-section" id="ourteam">
       <div className="dt-title-content">
@@ -35,12 +46,23 @@ function CounsellorsList() {
           title="Counsellor"
         />
       </div>
-      <button
-        className="text-appointment-btn"
-        type="button"
-      >
-         Join our team
-      </button>
+      {user?.isCounsellor ? (
+        <button
+          onClick={() => handleJoinTeamClick()}
+          className="text-appointment-btn"
+          type="button"
+        >
+          Join our team
+        </button>
+      ) : (
+        <button
+          onClick={() => handleJoinTeamClick()}
+          className="text-appointment-btn"
+          type="button"
+        >
+          Apply for counsellor
+        </button>
+      )}
     </div>
   );
 }

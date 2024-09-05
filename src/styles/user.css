@@ -110,8 +110,9 @@ h3 {
 
 .accept-btn {
   background-color: rgba(0, 128, 0, 0.528);
-  font-size: 0.8rem;
+  font-size: 0.675rem;
   padding: 0.5rem 0.8rem;
+  margin-right: 10px;
 }
 
 .accept-btn:hover {

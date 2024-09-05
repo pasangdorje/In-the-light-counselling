@@ -30,6 +30,7 @@ label {
 }
 
 input[type="text"],
+input[type="number"],
 input[type="tel"],
 input[type="email"],
 input[type="password"],
@@ -135,7 +136,7 @@ button:hover {
   margin-right: 5px;
 }
 
-.error {
+.error-msg {
   font-size: 0.875rem;
   margin-top: 0.25rem;
   color: #b90606;

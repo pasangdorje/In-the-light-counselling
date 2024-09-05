@@ -27,6 +27,22 @@ export const Public = ({ children }) => {
   );
 };
 
+export const Counsellor = ({children}) => {
+  const user = localStorage.getItem("token")
+    ? jwtDecode(localStorage.getItem("token"))
+    : null;
+
+  if (user?.isCounsellorAccount) {
+    return children;
+  }
+  return (
+    <Navigate
+      to={"/"}
+      replace={true}
+    ></Navigate>
+  );
+}
+
 export const Admin = ({ children }) => {
   const user = jwtDecode(localStorage.getItem("token"));
 
