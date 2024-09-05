@@ -7,9 +7,9 @@ const getallcounsellors = async (req, res) => {
   try {
     let docs;
     if (!req.locals) {
-      docs = await Counsellor.find({ isCounsellor: true }).populate("userId");
+      docs = await Counsellor.find({ isAccepted: true }).populate("userId");
     } else {
-      docs = await Counsellor.find({ isCounsellor: true })
+      docs = await Counsellor.find({ isAccepted: true })
         .find({
           _id: { $ne: req.locals },
         })
@@ -46,7 +46,7 @@ const getpaginatedcounsellors = async (req, res) => {
     const skip = (page - 1) * limit;
 
     // Fetch counsellors based on the combined filter, with pagination
-    const counsellors = await Counsellor.find({ isCounsellor: true })
+    const counsellors = await Counsellor.find({ isAccepted: true })
       .find({ $and: filters })
       .skip(skip)
       .limit(parseInt(limit))
@@ -69,16 +69,59 @@ const getpaginatedcounsellors = async (req, res) => {
 
 const getnotcounsellors = async (req, res) => {
   try {
-    const docs = await Counsellor.find({ isCounsellor: false })
-      .find({
-        _id: { $ne: req.locals },
-      })
+    const { search, date, page = 1, limit = 10 } = req.query;
+
+    const keyword = search
+      ? {
+          $or: [{ userId: search }],
+        }
+      : {};
+
+    let dateFilter = {};
+    if (date) {
+      dateFilter = { date };
+    }
+
+    // Combine the keyword and date filters
+    const filters = [keyword, dateFilter].filter(
+      (filter) => Object.keys(filter).length > 0
+    );
+
+    // Calculate the number of documents to skip based on the current page
+    const skip = (page - 1) * limit;
+
+    // Fetch counsellors based on the combined filter, with pagination
+    const counsellors = await Counsellor.find({ isAccepted: false })
+      .find({ $and: filters })
+      .skip(skip)
+      .limit(parseInt(limit))
       .populate("userId");
 
-    return res.send(docs);
+    // Count total counsellors that match the filters (without pagination)
+    const totalCounsellors = await Counsellor.countDocuments({ $and: filters });
+
+    // Return the counsellors along with pagination data
+    return res.send({
+      totalRows: totalCounsellors,
+      totalPages: Math.ceil(totalCounsellors / limit),
+      currentPage: parseInt(page),
+      data: counsellors,
+    });
   } catch (error) {
-    res.status(500).send("Unable to get non counsellors");
+    res.status(500).send("Unable to get pending counsellors");
   }
+
+  // try {
+  //   const docs = await Counsellor.find({ isAccepted: false })
+  //     .find({
+  //       _id: { $ne: req.locals },
+  //     })
+  //     .populate("userId");
+
+  //   return res.send(docs);
+  // } catch (error) {
+  //   res.status(500).send("Unable to get pending counsellors.");
+  // }
 };
 
 const applyforcounsellor = async (req, res) => {
@@ -104,12 +147,12 @@ const acceptcounsellor = async (req, res) => {
   try {
     const user = await User.findOneAndUpdate(
       { _id: req.body.id },
-      { isCounsellor: true, status: "accepted" }
+      { status: "accepted" }
     );
 
     const counsellor = await Counsellor.findOneAndUpdate(
       { userId: req.body.id },
-      { isCounsellor: true }
+      { isAccepted: true }
     );
 
     const notification = await Notification({
@@ -129,7 +172,7 @@ const rejectcounsellor = async (req, res) => {
   try {
     const details = await User.findOneAndUpdate(
       { _id: req.body.id },
-      { isCounsellor: false, status: "rejected" }
+      { isAccepted: false, status: "rejected" }
     );
     const delDoc = await Counsellor.findOneAndDelete({ userId: req.body.id });
 
@@ -148,19 +191,15 @@ const rejectcounsellor = async (req, res) => {
 
 const deletecounsellor = async (req, res) => {
   try {
-    const result = await User.findByIdAndUpdate(req.body.userId, {
-      isCounsellor: false,
-    });
     const removeDoc = await Counsellor.findOneAndDelete({
       userId: req.body.userId,
     });
     const removeAppoint = await Appointment.findOneAndDelete({
       userId: req.body.userId,
     });
-    return res.send("Counsellor deleted successfully");
+    return res.send("Counsellor removed successfully");
   } catch (error) {
-    console.log("error", error);
-    res.status(500).send("Unable to delete counsellor");
+    res.status(500).send("Unable to remove counsellor");
   }
 };
 

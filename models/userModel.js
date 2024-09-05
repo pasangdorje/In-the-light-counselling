@@ -26,7 +26,7 @@ const schema = mongoose.Schema(
       type: Boolean,
       default: false,
     },
-    isCounsellor: {
+    isCounsellorAccount: {
       type: Boolean,
       default: false,
     },

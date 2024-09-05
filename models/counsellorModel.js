@@ -19,7 +19,7 @@ const schema = mongoose.Schema(
       type: Number,
       required: true,
     },
-    isCounsellor: {
+    isAccepted: {
       type: Boolean,
       default: false,
     },

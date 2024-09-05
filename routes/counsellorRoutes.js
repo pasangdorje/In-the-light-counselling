@@ -6,6 +6,8 @@ const counsellorRouter = express.Router();
 
 counsellorRouter.get("/getallcounsellors", counsellorController.getallcounsellors);
 
+counsellorRouter.get("/getpaginatedcounsellors", counsellorController.getpaginatedcounsellors);
+
 counsellorRouter.get("/getnotcounsellors", auth, counsellorController.getnotcounsellors);
 
 counsellorRouter.post("/applyforcounsellor", auth, counsellorController.applyforcounsellor);

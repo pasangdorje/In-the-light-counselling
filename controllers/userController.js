@@ -66,7 +66,11 @@ const login = async (req, res) => {
       return res.status(400).send("Incorrect credentials");
     }
     const token = jwt.sign(
-      { userId: emailPresent._id, isAdmin: emailPresent.isAdmin },
+      {
+        userId: emailPresent._id,
+        isAdmin: emailPresent.isAdmin,
+        isCounsellorAccount: emailPresent.isCounsellorAccount,
+      },
       process.env.JWT_SECRET,
       {
         expiresIn: "2 days",
@@ -115,7 +119,7 @@ const updateprofile = async (req, res) => {
 const deleteuser = async (req, res) => {
   try {
     const result = await User.findByIdAndDelete(req.body.userId);
-    const removeDoc = await Counsellor.findOneAndDelete({
+    const removeCounsellor = await Counsellor.findOneAndDelete({
       userId: req.body.userId,
     });
     const removeAppoint = await Appointment.findOneAndDelete({
