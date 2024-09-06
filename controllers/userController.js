@@ -131,9 +131,45 @@ const deleteuser = async (req, res) => {
   }
 };
 
+const getGenderData = async (req, res) => {
+  const possibleGenders = ["Male", "Female", "Other"];
+
+  try {
+    // Aggregation pipeline
+    const genderCounts = await User.aggregate([
+      {
+        $match: { isCounsellorAccount: false }, // Filter users who are not counsellors
+      },
+      {
+        $group: {
+          _id: "$gender",
+          count: { $sum: 1 },
+        },
+      },
+    ]);
+
+    // Create a map of gender counts
+    const genderCountMap = genderCounts.reduce((map, gender) => {
+      map[gender._id] = gender.count;
+      return map;
+    }, {});
+
+    // Create result with all possible genders
+    const result = {
+      labels: possibleGenders,
+      data: possibleGenders.map((gender) => genderCountMap[gender.toLowerCase()] || 0),
+    };
+
+    res.json(result);
+  } catch (err) {
+    res.status(500).send(err.message);
+  }
+};
+
 module.exports = {
   getuser,
   getallusers,
+  getGenderData,
   login,
   register,
   updateprofile,

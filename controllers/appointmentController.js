@@ -52,7 +52,7 @@ const getallappointments = async (req, res) => {
 
 const getupcomingappointments = async (req, res) => {
   try {
-    const { search, limit = 10 } = req.query;
+    const { search, page = 1, limit = 10 } = req.query;
 
     const keyword = search
       ? {
@@ -60,33 +60,93 @@ const getupcomingappointments = async (req, res) => {
         }
       : {};
 
-    const currentDate = new Date();
+    const currentDate = new Date().toISOString().slice(0, 10); // Get today's date in 'YYYY-MM-DD' format
 
-    const upcomingFilter = { date: { $gte: currentDate } };
+    // Filter for dates greater than or equal to today (upcoming appointments)
+    const dateFilter = {
+      date: { $gte: currentDate },
+    };
 
-    const filters = [keyword, upcomingFilter].filter(
+    // Combine the keyword and date filters
+    const filters = [keyword, dateFilter].filter(
       (filter) => Object.keys(filter).length > 0
     );
 
+    // Calculate the number of documents to skip based on the current page
+    const skip = (page - 1) * limit;
+
+    // Fetch upcoming appointments based on the combined filter, with pagination
     const appointments = await Appointment.find({ $and: filters })
       .populate("counsellorId")
       .populate("userId")
-      .sort({ date: 1 }) // Sort by date in ascending order to get the nearest appointments first
+      .sort({ date: 1 }) // Sort by date in ascending order (soonest first)
+      .skip(skip)
       .limit(parseInt(limit));
 
+    // Count total upcoming appointments that match the filters (without pagination)
     const totalAppointments = await Appointment.countDocuments({
       $and: filters,
     });
 
-    // Return the appointments along with the total count
+    // Return the upcoming appointments along with pagination data
     return res.send({
-      totalUpcomingAppointments: totalAppointments,
+      totalRows: totalAppointments,
+      totalPages: Math.ceil(totalAppointments / limit),
+      currentPage: parseInt(page),
       data: appointments,
     });
   } catch (error) {
     res.status(500).send("Unable to get upcoming appointments");
   }
 };
+
+const getTotalBookingsOverTime = async (req, res) => {
+  try {
+    // Destructure the time interval (e.g., daily, monthly) from query parameters
+    const { interval = "monthly" } = req.query;
+
+    const matchStage = {
+      $match: {
+        date: { $regex: /^\d{4}-\d{2}-\d{2}$/ } // Assuming 'YYYY-MM-DD' format
+      }
+    };
+
+    // Group stage to aggregate based on the time interval
+    let groupStage;
+    if (interval === "daily") {
+      groupStage = {
+        $group: {
+          _id: "$date", // Group by the exact date (daily)
+          totalBookings: { $sum: 1 }
+        }
+      };
+    } else if (interval === "monthly") {
+      groupStage = {
+        $group: {
+          _id: { $substr: ["$date", 0, 7] }, // Extract 'YYYY-MM' for monthly grouping
+          totalBookings: { $sum: 1 }
+        }
+      };
+    }
+
+    const sortStage = {
+      $sort: { _id: 1 }
+    };
+
+    // Aggregation pipeline
+    const bookings = await Appointment.aggregate([
+      matchStage,
+      groupStage,
+      sortStage
+    ]);
+
+    res.status(200).send(bookings);
+  } catch (error) {
+    console.error("Error fetching total bookings over time:", error);
+    res.status(500).send("Unable to fetch total bookings over time");
+  }
+};
+
 
 const bookappointment = async (req, res) => {
   try {
@@ -211,6 +271,7 @@ const completed = async (req, res) => {
 module.exports = {
   getallappointments,
   getupcomingappointments,
+  getTotalBookingsOverTime,
   bookappointment,
   completed,
 };

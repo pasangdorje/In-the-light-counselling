@@ -16,6 +16,12 @@ appointRouter.get(
   appointmentController.getupcomingappointments
 );
 
+appointRouter.get(
+  "/getTotalBookingsOverTime",
+  auth,
+  appointmentController.getTotalBookingsOverTime
+);
+
 appointRouter.post(
   "/bookappointment",
   auth,

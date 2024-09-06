@@ -7,6 +7,8 @@ userRouter.get("/getuser/:id", auth, userController.getuser);
 
 userRouter.get("/getallusers", auth, userController.getallusers);
 
+userRouter.get("/getGenderData", auth, userController.getGenderData);
+
 userRouter.post("/login", userController.login);
 
 userRouter.post("/register", userController.register);
