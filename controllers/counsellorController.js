@@ -2,6 +2,7 @@ const Counsellor = require("../models/counsellorModel");
 const User = require("../models/userModel");
 const Notification = require("../models/notificationModel");
 const Appointment = require("../models/appointmentModel");
+const { sendEmailWithTemplate } = require("../middleware/mailer");
 
 const getallcounsellors = async (req, res) => {
   try {
@@ -126,8 +127,8 @@ const getnotcounsellors = async (req, res) => {
 
 const applyforcounsellor = async (req, res) => {
   try {
-    const alreadyFound = await Counsellor.findOne({ userId: req.locals });
-    if (alreadyFound) {
+    const already = await Counsellor.findOne({ userId: req.locals });
+    if (already) {
       return res.status(400).send("Application already exists");
     }
 
@@ -136,6 +137,20 @@ const applyforcounsellor = async (req, res) => {
       userId: req.locals,
     });
     const result = await counsellor.save();
+
+    // Send email to the counsellor
+    try {
+      const counsellorDetail = await User.findById(req.locals);
+      if (counsellorDetail?.email) {
+        const counsellorEmail = counsellorDetail.email;
+        const emailSubject = "Application Submitted";
+        const emailText = `Your application for Counsellor has been submitted.`;
+
+        await sendEmailWithTemplate(counsellorEmail, counsellorDetail.firstname, emailSubject, emailText);
+      }
+    } catch (emailError) {
+      console.error("Failed to send email:", emailError.message);
+    }
 
     return res.status(201).send("Application submitted successfully");
   } catch (error) {
@@ -162,6 +177,20 @@ const acceptcounsellor = async (req, res) => {
 
     await notification.save();
 
+    // Send email to the counsellor
+    try {
+      const counsellorDetail = await User.findById(req.body.id);
+      if (counsellorDetail?.email) {
+        const counsellorEmail = counsellorDetail.email;
+        const emailSubject = "Application Accepted";
+        const emailText = `Congratulations! Your application for Counsellor has been accepted.`;
+
+        await sendEmailWithTemplate(counsellorEmail, counsellorDetail.firstname, emailSubject, emailText);
+      }
+    } catch (emailError) {
+      console.error("Failed to send email:", emailError.message);
+    }
+
     return res.status(201).send("Application accepted notification sent");
   } catch (error) {
     res.status(500).send("Error while sending notification");
@@ -183,6 +212,20 @@ const rejectcounsellor = async (req, res) => {
 
     await notification.save();
 
+    // Send email to the counsellor
+    try {
+      const counsellorDetail = await User.findById(req.body.id);
+      if (counsellorDetail?.email) {
+        const counsellorEmail = counsellorDetail.email;
+        const emailSubject = "Application Rejected";
+        const emailText = `We hope this message finds you well. Unfortunately, we regret to inform you that your application for Counsellor has been rejected.`;
+
+        await sendEmailWithTemplate(counsellorEmail, counsellorDetail.firstname, emailSubject, emailText);
+      }
+    } catch (emailError) {
+      console.error("Failed to send email:", emailError.message);
+    }
+
     return res.status(201).send("Application rejection notification sent");
   } catch (error) {
     res.status(500).send("Error while rejecting application");
@@ -197,6 +240,20 @@ const deletecounsellor = async (req, res) => {
     const removeAppoint = await Appointment.findOneAndDelete({
       userId: req.body.userId,
     });
+    // Send email to the counsellor
+    try {
+      const counsellorDetail = await User.findById(req.body.userId);
+      if (counsellorDetail?.email) {
+        const counsellorEmail = counsellorDetail.email;
+        const emailSubject = "Removed from Counsellor";
+        const emailText = `We hope this message finds you well. Unfortunately, we regret to inform you that you have been removed from counsellor position.`;
+
+        await sendEmailWithTemplate(counsellorEmail, counsellorDetail,firstname, emailSubject, emailText);
+      }
+    } catch (emailError) {
+      console.error("Failed to send email:", emailError.message);
+    }
+
     return res.send("Counsellor removed successfully");
   } catch (error) {
     res.status(500).send("Unable to remove counsellor");
