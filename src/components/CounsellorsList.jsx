@@ -46,13 +46,13 @@ function CounsellorsList() {
           title="Counsellor"
         />
       </div>
-      {user?.isCounsellor ? (
+      {user?.isCounsellorAccount ? (
         <button
           onClick={() => handleJoinTeamClick()}
           className="text-appointment-btn"
           type="button"
         >
-          Join our team
+          Apply for counsellor
         </button>
       ) : (
         <button
@@ -60,7 +60,7 @@ function CounsellorsList() {
           className="text-appointment-btn"
           type="button"
         >
-          Apply for counsellor
+          Join our team
         </button>
       )}
     </div>

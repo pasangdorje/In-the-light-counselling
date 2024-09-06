@@ -53,12 +53,16 @@ function Login() {
           loading: "Logging user...",
         }
       );
-      localStorage.setItem("token", data.token);
-      setActionInProgress(false);
-      dispatch(setUserInfo(jwt_decode(data.token).userId));
-      getUser(jwt_decode(data.token).userId);
+      if (data) {
+        localStorage.setItem("token", data.token);
+        setActionInProgress(false);
+        dispatch(setUserInfo(jwt_decode(data.token).userId));
+        getUser(jwt_decode(data.token).userId);
+      }
     } catch (error) {
-      setError(error.response.data);
+      if(error?.response?.data){
+        setError(error.response.data);
+      }
       return error;
     }
   };

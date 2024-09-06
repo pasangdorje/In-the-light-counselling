@@ -61,6 +61,11 @@
   color: white;
 }
 
+.form-btn:disabled {
+  background-color: var(--darker-primary);
+  color: white;
+}
+
 .input-custom {
   max-width: 250px;
   margin-bottom: 0;

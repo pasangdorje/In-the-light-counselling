@@ -30,12 +30,13 @@ h3 {
 /* Tables */
 .table {
   margin-bottom: 0;
+  width: -webkit-fill-available;
 }
 .table thead th {
   border-top: 0;
   border-bottom-width: 1px;
   font-family: "ubuntu-medium", sans-serif;
-  font-weight: 600;
+  font-weight: 500;
 }
 .table thead th i {
   margin-left: 0.325rem;

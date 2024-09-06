@@ -4,30 +4,7 @@ import { Chart as ChartJS, ArcElement, Tooltip, Legend } from "chart.js";
 
 ChartJS.register(ArcElement, Tooltip, Legend);
 
-const DoughnutChart = () => {
-  // Chart data
-  const data = {
-    labels: ["Male", "Female", "Others"],
-    datasets: [
-      {
-        data: [12, 19, 3,],
-        backgroundColor: [
-          "rgba(54, 215, 232, 1)",
-          "rgba(6, 185, 157, 1)",
-          "rgba(254, 112, 150, 1)",
-        ],
-        borderColor: [
-          "rgba(54, 215, 232, 1)",
-          "rgba(6, 185, 157, 1)",
-          "rgba(254, 112, 150, 1)",
-          
-        ],
-        borderWidth: 1,
-      },
-    ],
-  };
-
-  // Chart options
+const DoughnutChart = ({data}) => {
   const options = {
     plugins: {
       legend: {
@@ -37,7 +14,7 @@ const DoughnutChart = () => {
   };
 
   return (
-    <div className="doughnutjs-wrapper d-flex justify-content-center">
+    <div className="dashboard-chart-wrapper d-flex justify-content-center">
       <Doughnut data={data} options={options} />
       <div
         id="traffic-chart-legend"

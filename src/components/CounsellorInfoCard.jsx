@@ -16,7 +16,7 @@ const CounsellorInfoCard = ({ ele }) => {
 
   return (
     <>
-      <div className={`card`}>
+      <div className={`card counsellor-card`}>
         <div className={`card-img flex-center`}>
           <img
             src={

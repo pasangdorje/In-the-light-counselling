@@ -20,28 +20,7 @@ ChartJS.register(
   Legend
 );
 
-const LineChart = () => {
-  // Sample data for the chart
-  const data = {
-    labels: ["January", "February", "March", "April", "May", "June"],
-    datasets: [
-      {
-        label: "Bookings",
-        data: [50, 70, 40, 90, 60, 80],
-        borderColor: "rgba(75, 192, 192, 1)",
-        backgroundColor: "rgba(75, 192, 192, 0.2)",
-        fill: true,
-      },
-      {
-        label: "Sessions",
-        data: [40, 60, 30, 80, 60, 50],
-        borderColor: "rgba(153, 102, 255, 1)",
-        backgroundColor: "rgba(153, 102, 255, 0.2)",
-        fill: true,
-      },
-    ],
-  };
-
+const LineChart = ({ data }) => {
   // Chart options
   const options = {
     responsive: true,
@@ -63,19 +42,17 @@ const LineChart = () => {
           display: true,
           text: "Values",
         },
+        ticks: {
+          stepSize: 1,
+        },
       },
     },
   };
 
   return (
-    <>
-      <h4 className="card-title float-start">Bookings and Sessions Statistics</h4>
-      <div
-        id="visit-sale-chart-legend"
-        className="rounded-legend legend-horizontal legend-top-right float-end"
-      />
+    <div className="dashboard-chart-wrapper d-flex justify-content-center">
       <Line data={data} options={options} className="mt-4" />
-    </>
+    </div>
   );
 };
 

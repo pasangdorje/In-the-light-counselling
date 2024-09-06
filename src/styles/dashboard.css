@@ -1,0 +1,32 @@
+  #traffic-chart-legend ul {
+    padding-left: 0;
+    margin-bottom: 0;
+    display: none;
+  }
+  #traffic-chart-legend ul li {
+    list-style: none;
+    color: #9c9fa6;
+    font-size: 12px;
+    display: block;
+    margin-right: 1rem;
+  }
+  #traffic-chart-legend ul li span {
+    width: 1rem;
+    height: 1rem;
+    border-radius: 100%;
+    display: inline-block;
+    margin-right: 10px;
+  }
+  #traffic-chart-legend > :first-child {
+    display: block;
+  }
+  
+  .dashboard-chart-wrapper {
+    height: 300px !important;
+    margin: 1rem;
+  }
+  @media (max-width: 1360px) {
+    .dashboard-chart-wrapper {
+      height: 200px !important;
+    }
+  }

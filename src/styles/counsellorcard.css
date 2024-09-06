@@ -9,6 +9,11 @@
   box-shadow: 0 0 10px 0 rgb(188, 188, 188);
 }
 
+.counsellor-card{
+  text-align: center;
+  width: 330px;
+}
+
 .card-img {
   margin: 0 auto;
 }

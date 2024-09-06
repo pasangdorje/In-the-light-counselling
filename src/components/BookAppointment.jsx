@@ -26,8 +26,9 @@ const BookAppointment = ({ setModalOpen, ele }) => {
       date: Yup.string().required("Date is required"),
       time: Yup.string().required("Time is required"),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values, { setSubmitting }) => {
       try {
+        setSubmitting(true);
         await toast.promise(
           axios.post(
             "/appointment/bookappointment",
@@ -54,6 +55,8 @@ const BookAppointment = ({ setModalOpen, ele }) => {
         setModalOpen(false);
       } catch (error) {
         return error;
+      }finally {
+        setSubmitting(false);
       }
     },
   });
@@ -123,7 +126,7 @@ const BookAppointment = ({ setModalOpen, ele }) => {
                 />
               </div>
               {formik.touched.subject && formik.errors.subject ? (
-                <div className="error">{formik.errors.subject}</div>
+                <div className="error-msg">{formik.errors.subject}</div>
               ) : null}
 
               <label htmlFor="type" className="mt-3">
@@ -146,7 +149,7 @@ const BookAppointment = ({ setModalOpen, ele }) => {
                 </select>
               </div>
               {formik.touched.type && formik.errors.type ? (
-                <div className="error">{formik.errors.type}</div>
+                <div className="error-msg">{formik.errors.type}</div>
               ) : null}
 
               <label htmlFor="date" className="mt-3">
@@ -163,7 +166,7 @@ const BookAppointment = ({ setModalOpen, ele }) => {
                 />
               </div>
               {formik.touched.date && formik.errors.date ? (
-                <div className="error">{formik.errors.date}</div>
+                <div className="error-msg">{formik.errors.date}</div>
               ) : null}
 
               {formik.values.date && (
@@ -197,11 +200,11 @@ const BookAppointment = ({ setModalOpen, ele }) => {
                     />
                   </div>
                   {formik.touched.time && formik.errors.time ? (
-                    <div className="error">{formik.errors.time}</div>
+                    <div className="error-msg">{formik.errors.time}</div>
                   ) : null}
                 </>
               )}
-              <button type="submit" className="btn form-btn mt-3">
+              <button type="submit" disabled={formik.isSubmitting} className="btn form-btn mt-3">
                 Book
               </button>
             </form>

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import "../styles/contact.css";
+import "../styles/profile.css";
 import axios from "axios";
 import toast from "react-hot-toast";
 import { useNavigate } from "react-router-dom";
@@ -38,7 +38,7 @@ const ApplyCounsellor = () => {
           },
         }
       );
-
+      toast.success("Application submitted successfully.");
       navigate("/");
     } catch (error) {
       if (
