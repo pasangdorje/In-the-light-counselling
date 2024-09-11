@@ -46,7 +46,7 @@ function CounsellorsList() {
           title="Counsellor"
         />
       </div>
-      {user?.isCounsellorAccount ? (
+      {user?.isCounsellorAccount && (
         <button
           onClick={() => handleJoinTeamClick()}
           className="text-appointment-btn"
@@ -54,7 +54,8 @@ function CounsellorsList() {
         >
           Apply for counsellor
         </button>
-      ) : (
+      ) }
+      {!user &&  (
         <button
           onClick={() => handleJoinTeamClick()}
           className="text-appointment-btn"
@@ -62,7 +63,8 @@ function CounsellorsList() {
         >
           Join our team
         </button>
-      )}
+      )
+    }
     </div>
   );
 }

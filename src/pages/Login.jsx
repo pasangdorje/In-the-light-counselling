@@ -7,6 +7,8 @@ import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { useNavigate } from "react-router-dom";
 import { setUserInfo } from "../redux/reducers/rootSlice";
+import { Link } from "react-router-dom";
+import Logo from "../assets/logo.png";
 
 function Login() {
   const dispatch = useDispatch();
@@ -60,7 +62,7 @@ function Login() {
         getUser(jwt_decode(data.token).userId);
       }
     } catch (error) {
-      if(error?.response?.data){
+      if (error?.response?.data) {
         setError(error.response.data);
       }
       return error;
@@ -69,9 +71,11 @@ function Login() {
 
   return (
     <div className="login-container">
-      <h2>
-        <center>Sign in</center>
-      </h2>
+      <h1 className="navbar-title mb-0">
+        <Link to="/">
+          <img src={Logo} alt="logo" />
+        </Link>
+      </h1>
       <br></br>
       <p>Log in by entering your email address and password.</p>
       <br></br>

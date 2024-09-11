@@ -10,13 +10,21 @@ import "../../styles/user.css";
 import { FaUserTie } from "react-icons/fa";
 import useTablePagination from "../hooks/useTablePagination";
 import { TablePagination } from "@mui/material";
+import ConfirmationModal from "../ConfirmationModal";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 const AdminCounsellors = () => {
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
   const [counsellors, setCounsellors] = useState([]);
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.root);
+
+  const openAcceptModal = (userId) => {
+    setSelectedUser(userId);
+    setOpenModal(true);
+  };
 
   const {
     page,
@@ -42,30 +50,25 @@ const AdminCounsellors = () => {
     }
   };
 
-  const deleteUser = async (userId) => {
+  const deleteUser = async () => {
     try {
-      const confirm = window.confirm(
-        "Are you sure you want to remove this counsellor?"
-      );
-      if (confirm) {
-        await toast.promise(
-          axios.put(
-            "/counsellor/deletecounsellor",
-            { userId },
-            {
-              headers: {
-                authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-            }
-          ),
+      await toast.promise(
+        axios.put(
+          "/counsellor/deletecounsellor",
+          { selectedUser },
           {
-            success: "Counsellor deleted successfully",
-            error: "Unable to delete Counsellor",
-            loading: "Deleting Counsellor...",
+            headers: {
+              authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
           }
-        );
-        getAllCounsellors();
-      }
+        ),
+        {
+          success: "Counsellor deleted successfully",
+          error: "Unable to delete Counsellor",
+          loading: "Deleting Counsellor...",
+        }
+      );
+      getAllCounsellors();
     } catch (error) {
       return error;
     }
@@ -73,7 +76,7 @@ const AdminCounsellors = () => {
 
   useEffect(() => {
     getAllCounsellors();
-  }, []);
+  }, [page, rowsPerPage]);
 
   return (
     <>
@@ -127,7 +130,7 @@ const AdminCounsellors = () => {
                           <button
                             className="btn user-btn"
                             onClick={() => {
-                              deleteUser(ele?.userId?._id);
+                              openAcceptModal(ele?.userId?._id);
                             }}
                           >
                             Remove
@@ -152,6 +155,13 @@ const AdminCounsellors = () => {
                     marginBottom: "auto",
                   },
                 }}
+              />
+              <ConfirmationModal
+                isOpen={openModal}
+                onClose={() => setOpenModal(false)}
+                onConfirm={deleteUser}
+                message="Are you sure you want to remove this user?"
+                title="Remove User"
               />
             </div>
           ) : (

@@ -94,7 +94,7 @@ const Appointments = () => {
                   <tr>
                     <th>S.No</th>
                     <th>Counsellor</th>
-                    <th>Patient</th>
+                    <th>Client</th>
                     <th>Date</th>
                     <th>Time</th>
                     <th>Created Date</th>

@@ -74,7 +74,7 @@ const UpcomingAppointments = () => {
                 <tr>
                   <th>S.No</th>
                   <th>Counsellor</th>
-                  <th>Patient</th>
+                  <th>Client</th>
                   <th>Appointment Date</th>
                   <th>Appointment Time</th>
                   <th>Booking Date</th>

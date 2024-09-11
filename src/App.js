@@ -4,7 +4,7 @@ import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import Login from "./pages/Login";
 import Register from "./pages/Register";
 import { Toaster } from "react-hot-toast";
-import { Protected, Public, Admin, Counsellor } from "./middleware/route";
+import { Protected, Public, Admin, Counsellor, User } from "./middleware/route";
 import React, { lazy, Suspense } from "react";
 import Loading from "./components/Loading";
 import { ROUTES } from "./constants/routePaths";
@@ -39,9 +39,20 @@ function App() {
           />
           <Route
             path={ROUTES.REGISTER_COUNSELLOR}
-            element={<RegisterCounsellor />}
+            element={
+              <Public>
+                <RegisterCounsellor />
+              </Public>
+            }
           />
-          <Route path={ROUTES.COUNSELLORS} element={<Counsellors />} />
+          <Route
+            path={ROUTES.COUNSELLORS}
+            element={
+              <User>
+                <Counsellors />
+              </User>
+            }
+          />
           <Route
             path={ROUTES.APPOINTMENTS}
             element={

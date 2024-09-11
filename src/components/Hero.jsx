@@ -4,9 +4,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faCalendarCheck, faAngleUp } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import "../styles/hero.css";
+import jwtDecode from "jwt-decode";
 
 function Hero() {
   const navigate = useNavigate();
+  const user = localStorage.getItem("token")
+    ? jwtDecode(localStorage.getItem("token"))
+    : null;
   const [goUp, setGoUp] = useState(false);
 
   const scrollToTop = () => {
@@ -44,13 +48,15 @@ function Hero() {
             you through the complexities of mental health with compassion and
             expertise.
           </p>
-          <button
-            className="text-appointment-btn"
-            type="button"
-            onClick={handleBookAppointmentClick}
-          >
-            <FontAwesomeIcon icon={faCalendarCheck} /> Book Appointment
-          </button>
+          {!user?.isAdmin && !user?.isCounsellorAccount && (
+            <button
+              className="text-appointment-btn"
+              type="button"
+              onClick={handleBookAppointmentClick}
+            >
+              <FontAwesomeIcon icon={faCalendarCheck} /> Book Appointment
+            </button>
+          )}
         </div>
 
         <div className="hero-image-section">

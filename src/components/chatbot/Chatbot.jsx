@@ -36,7 +36,7 @@ const Chatbot = () => {
     // Clean up scripts when the component is unmounted
     return () => {
       const injectScript = document.querySelector('script[src="https://cdn.botpress.cloud/webchat/v2.1/inject.js"]');
-      const configScript = document.querySelector('script[src="https://mediafiles.botpress.cloud/c9684d82-1f66-4f98-a908-c5ba6f15f313/webchat/v2.1/config.js"]');
+      const configScript = document.querySelector('script[src="https://mediafiles.botpress.cloud/4e0bb1f4-f2b3-4c9f-aa05-13f3e1f55b0a/webchat/v2.1/config.js"]');
 
       if (injectScript) document.body.removeChild(injectScript);
       if (configScript) document.body.removeChild(configScript);

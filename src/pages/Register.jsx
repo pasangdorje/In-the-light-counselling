@@ -5,6 +5,8 @@ import { useNavigate } from "react-router-dom";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import toast from "react-hot-toast";
+import { Link } from "react-router-dom";
+import Logo from "../assets/logo.png";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
@@ -80,10 +82,14 @@ function Register() {
 
   return (
     <div className="signup-container">
-      <h2>
-        <center>Sign up</center>
-      </h2>
-      <br />
+      <h1 className="navbar-title mb-0">
+        <Link to="/">
+          <img src={Logo} alt="logo" />
+        </Link>
+      </h1>
+      <br></br>
+      <p>Enter your details to create your account.</p>
+      <br></br>
       <form onSubmit={formik.handleSubmit}>
         <div className="input-group">
           <label htmlFor="firstname">First Name</label>

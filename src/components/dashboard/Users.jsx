@@ -9,10 +9,13 @@ import fetchData from "../../helper/apiCall";
 import { FaUsers } from "react-icons/fa";
 import useTablePagination from "../hooks/useTablePagination";
 import { TablePagination } from "@mui/material";
+import ConfirmationModal from "../ConfirmationModal";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 const Users = () => {
+  const [selectedUser, setSelectedUser] = useState(null);
+  const [openModal, setOpenModal] = useState(false);
   const [users, setUsers] = useState([]);
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.root);
@@ -25,6 +28,11 @@ const Users = () => {
     handleChangePage,
     handleChangeRowsPerPage,
   } = useTablePagination();
+
+  const openAcceptModal = (userId) => {
+    setSelectedUser(userId);
+    setOpenModal(true);
+  };
 
   const getAllUsers = async (e) => {
     try {
@@ -41,26 +49,23 @@ const Users = () => {
     }
   };
 
-  const deleteUser = async (userId) => {
+  const deleteUser = async () => {
     try {
-      const confirm = window.confirm("Are you sure you want to delete?");
-      if (confirm) {
-        await toast.promise(
-          axios.delete("/user/deleteuser", {
-            headers: {
-              authorization: `Bearer ${localStorage.getItem("token")}`,
-            },
-            data: { userId },
-          }),
-          {
-            pending: "Deleting in...",
-            success: "User deleted successfully",
-            error: "Unable to delete user",
-            loading: "Deleting user...",
-          }
-        );
-        getAllUsers();
-      }
+      await toast.promise(
+        axios.delete("/user/deleteuser", {
+          headers: {
+            authorization: `Bearer ${localStorage.getItem("token")}`,
+          },
+          data: { selectedUser },
+        }),
+        {
+          pending: "Deleting in...",
+          success: "User deleted successfully",
+          error: "Unable to delete user",
+          loading: "Deleting user...",
+        }
+      );
+      getAllUsers();
     } catch (error) {
       return error;
     }
@@ -68,7 +73,7 @@ const Users = () => {
 
   useEffect(() => {
     getAllUsers();
-  }, []);
+  }, [page, rowsPerPage]);
 
   return (
     <>
@@ -118,7 +123,7 @@ const Users = () => {
                           <button
                             className="btn user-btn"
                             onClick={() => {
-                              deleteUser(ele?._id);
+                              openAcceptModal(ele?._id);
                             }}
                           >
                             Remove
@@ -143,6 +148,13 @@ const Users = () => {
                     marginBottom: "auto",
                   },
                 }}
+              />
+              <ConfirmationModal
+                isOpen={openModal}
+                onClose={() => setOpenModal(false)}
+                onConfirm={deleteUser}
+                message="Are you sure you want to remove this user?"
+                title="Remove User"
               />
             </div>
           ) : (

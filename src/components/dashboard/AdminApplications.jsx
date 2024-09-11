@@ -10,10 +10,13 @@ import "../../styles/user.css";
 import { FaEnvelope } from "react-icons/fa";
 import useTablePagination from "../hooks/useTablePagination";
 import { TablePagination } from "@mui/material";
+import ConfirmationModal from "../ConfirmationModal";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
 const AdminApplications = () => {
+  const [openModal, setOpenModal] = useState(null);
+  const [selectedUser, setSelectedUser] = useState(null);
   const [applications, setApplications] = useState([]);
   const dispatch = useDispatch();
   const { loading } = useSelector((state) => state.root);
@@ -42,57 +45,61 @@ const AdminApplications = () => {
     }
   };
 
-  const acceptUser = async (userId) => {
+  const openAcceptModal = (userId) => {
+    setSelectedUser(userId);
+    setOpenModal("accept");
+  };
+
+  const openRejectModal = (userId) => {
+    setSelectedUser(userId);
+    setOpenModal("reject");
+  };
+
+  const acceptUser = async () => {
     try {
-      const confirm = window.confirm("Are you sure you want to accept?");
-      if (confirm) {
-        await toast.promise(
-          axios.put(
-            "/counsellor/acceptcounsellor",
-            { id: userId },
-            {
-              headers: {
-                authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-              data: { userId },
-            }
-          ),
+      await toast.promise(
+        axios.put(
+          "/counsellor/acceptcounsellor",
+          { id: selectedUser },
           {
-            success: "Application accepted",
-            error: "Unable to accept application",
-            loading: "Accepting application...",
+            headers: {
+              authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            data: { selectedUser },
           }
-        );
-        getAllApp();
-      }
+        ),
+        {
+          success: "Application accepted",
+          error: "Unable to accept application",
+          loading: "Accepting application...",
+        }
+      );
+      getAllApp();
     } catch (error) {
       return error;
     }
   };
 
-  const deleteUser = async (userId) => {
+  const deleteUser = async () => {
     try {
-      const confirm = window.confirm("Are you sure you want to delete?");
-      if (confirm) {
-        await toast.promise(
-          axios.put(
-            "/counsellor/rejectcounsellor",
-            { id: userId },
-            {
-              headers: {
-                authorization: `Bearer ${localStorage.getItem("token")}`,
-              },
-              data: { userId },
-            }
-          ),
+      await toast.promise(
+        axios.put(
+          "/counsellor/rejectcounsellor",
+          { id: selectedUser },
           {
-            success: "Application rejected",
-            error: "Unable to reject application",
-            loading: "Rejecting application...",
+            headers: {
+              authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+            data: { selectedUser },
           }
-        );
-        getAllApp();
-      }
+        ),
+        {
+          success: "Application rejected",
+          error: "Unable to reject application",
+          loading: "Rejecting application...",
+        }
+      );
+      getAllApp();
     } catch (error) {
       return error;
     }
@@ -108,7 +115,7 @@ const AdminApplications = () => {
         <Loading />
       ) : (
         <section className="user-section">
-           <h3 className="page-title">
+          <h3 className="page-title">
             <span className="page-title-icon bg-gradient-primary text-white me-2">
               <FaEnvelope />
             </span>{" "}
@@ -157,7 +164,7 @@ const AdminApplications = () => {
                           <button
                             className="btn user-btn accept-btn"
                             onClick={() => {
-                              acceptUser(ele?.userId?._id);
+                              openAcceptModal(ele?.userId?._id);
                             }}
                           >
                             Accept
@@ -165,7 +172,7 @@ const AdminApplications = () => {
                           <button
                             className="btn user-btn"
                             onClick={() => {
-                              deleteUser(ele?.userId?._id);
+                              openRejectModal(ele?.userId?._id);
                             }}
                           >
                             Reject
@@ -195,6 +202,20 @@ const AdminApplications = () => {
           ) : (
             <Empty />
           )}
+          <ConfirmationModal
+            isOpen={openModal === "accept"}
+            onClose={() => setOpenModal(null)}
+            onConfirm={acceptUser}
+            message="Are you sure you want to accept this applicant as a Counsellor?"
+            title="Confirm Counsellor"
+          />
+          <ConfirmationModal
+            isOpen={openModal === "reject"}
+            onClose={() => setOpenModal(null)}
+            onConfirm={deleteUser}
+            message="Are you sure you want to reject this applicant?"
+            title="Reject Counsellor"
+          />
         </section>
       )}
     </>

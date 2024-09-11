@@ -8,6 +8,8 @@ import * as Yup from "yup";
 import { BOOKING_SLOTS } from "../constants/appointmentSlots";
 import fetchData from "../helper/apiCall";
 import { FaExclamationCircle } from "react-icons/fa";
+import moment from "moment";
+import { isNotPastDate } from "../utils/moment";
 
 const BookAppointment = ({ setModalOpen, ele }) => {
   const [selectedSlot, setSelectedSlot] = useState("");
@@ -55,7 +57,7 @@ const BookAppointment = ({ setModalOpen, ele }) => {
         setModalOpen(false);
       } catch (error) {
         return error;
-      }finally {
+      } finally {
         setSubmitting(false);
       }
     },
@@ -87,7 +89,9 @@ const BookAppointment = ({ setModalOpen, ele }) => {
     const slots = BOOKING_SLOTS.map((slot) => {
       return {
         ...slot,
-        available: !bookings.find((b) => b.time === slot.value),
+        available:
+          !bookings.find((b) => b.time === slot.value) &&
+          isNotPastDate(formik.values.date, slot.value),
       };
     });
 
@@ -159,6 +163,7 @@ const BookAppointment = ({ setModalOpen, ele }) => {
                 <input
                   type="date"
                   name="date"
+                  min={moment().format("YYYY-MM-DD")}
                   className="form-control form-input"
                   value={formik.values.date}
                   onChange={formik.handleChange}
@@ -204,7 +209,11 @@ const BookAppointment = ({ setModalOpen, ele }) => {
                   ) : null}
                 </>
               )}
-              <button type="submit" disabled={formik.isSubmitting} className="btn form-btn mt-3">
+              <button
+                type="submit"
+                disabled={formik.isSubmitting}
+                className="btn form-btn mt-3"
+              >
                 Book
               </button>
             </form>

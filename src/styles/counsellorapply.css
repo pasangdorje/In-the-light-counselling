@@ -13,3 +13,8 @@
 option {
   text-transform: capitalize;
 }
+
+.form-btn:disabled {
+  background-color: var(--darker-primary);
+  color: white;
+}

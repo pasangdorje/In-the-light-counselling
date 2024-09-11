@@ -10,6 +10,8 @@ import jwt_decode from "jwt-decode";
 import { useDispatch } from "react-redux";
 import { setUserInfo } from "../redux/reducers/rootSlice";
 import fetchData from "../helper/apiCall";
+import { Link } from "react-router-dom";
+import Logo from "../assets/logo.png";
 
 axios.defaults.baseURL = process.env.REACT_APP_SERVER_DOMAIN;
 
@@ -123,10 +125,14 @@ function RegisterCounsellor() {
 
   return (
     <div className="signup-container">
-      <h2>
-        <center>Register Counsellor</center>
-      </h2>
-      <br />
+      <h1 className="navbar-title mb-0">
+        <Link to="/">
+          <img src={Logo} alt="logo" />
+        </Link>
+      </h1>
+      <br></br>
+      <p>Enter your details to create your account as a counsellor.</p>
+      <br></br>
       <form onSubmit={formik.handleSubmit}>
         <div className="input-group">
           <label htmlFor="firstname">First Name</label>

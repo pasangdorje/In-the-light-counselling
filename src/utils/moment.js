@@ -7,7 +7,17 @@ export const getFormattedTime = (dateString) => {
 };
 
 export const getFormattedDay = (dateString) => {
-  if(dateString){
-    return moment(dateString).format('MMM');
+  if (dateString) {
+    return moment(dateString).format("MMM");
   }
-}
+};
+
+export const isNotPastDate = (dateString, time) => {
+  if (dateString === moment().format("YYYY-MM-DD")) {
+    return moment().format("HH:MM") <= time;
+  } else if (dateString < moment().format("YYYY-MM-DD")) {
+    return false;
+  } else {
+    return true;
+  }
+};

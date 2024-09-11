@@ -22,7 +22,7 @@ function Profile() {
     firstname: "",
     lastname: "",
     email: "",
-    age: "",
+    // age: "",
     phone: "",
     gender: "others",
     address: "",
@@ -39,7 +39,7 @@ function Profile() {
         firstname: temp.firstname || "",
         lastname: temp.lastname || "",
         email: temp.email || "",
-        age: temp.age || "",
+        // age: temp.age || "",
         phone: temp.phone || "",
         gender: temp.gender || "others",
         address: temp.address || "",
@@ -67,7 +67,7 @@ function Profile() {
       .min(3, "Last name must be at least 3 characters")
       .required("Last name is required"),
     email: Yup.string().email("Invalid email").required("Email is required"),
-    age: Yup.number().required("Age is required"),
+    // age: Yup.number().required("Age is required"),
     phone: Yup.string(),
     gender: Yup.string().required("Gender is required"),
     address: Yup.string().required("Address is required"),
@@ -129,28 +129,32 @@ function Profile() {
               {({ isSubmitting }) => (
                 <Form className="edit-profile-form">
                   <div className="form-same-row input-group">
-                    <Field
-                      type="text"
-                      name="firstname"
-                      className="form-input"
-                      placeholder="Enter your first name"
-                    />
-                    <ErrorMessage
-                      name="firstname"
-                      component="div"
-                      className="text-danger"
-                    />
-                    <Field
-                      type="text"
-                      name="lastname"
-                      className="form-input"
-                      placeholder="Enter your last name"
-                    />
-                    <ErrorMessage
-                      name="lastname"
-                      component="div"
-                      className="text-danger"
-                    />
+                    <div className="same-row-input-field">
+                      <Field
+                        type="text"
+                        name="firstname"
+                        className="form-input"
+                        placeholder="Enter your first name"
+                      />
+                      <ErrorMessage
+                        name="firstname"
+                        component="div"
+                        className="error-msg"
+                      />
+                    </div>
+                    <div className="same-row-input-field">
+                      <Field
+                        type="text"
+                        name="lastname"
+                        className="form-input"
+                        placeholder="Enter your last name"
+                      />
+                      <ErrorMessage
+                        name="lastname"
+                        component="div"
+                        className="error-msg"
+                      />
+                    </div>
                   </div>
 
                   <div className="form-same-row input-group">
@@ -163,7 +167,7 @@ function Profile() {
                     <ErrorMessage
                       name="email"
                       component="div"
-                      className="text-danger"
+                      className="error-msg"
                     />
                     <Field as="select" name="gender" className="form-input">
                       <option value="male">Male</option>
@@ -173,72 +177,83 @@ function Profile() {
                     <ErrorMessage
                       name="gender"
                       component="div"
-                      className="text-danger"
+                      className="error-msg"
                     />
                   </div>
 
                   <div className="form-same-row input-group">
-                    <Field
-                      type="text"
-                      name="age"
-                      className="form-input"
-                      placeholder="Enter your age"
-                    />
-                    <ErrorMessage
-                      name="age"
-                      component="div"
-                      className="text-danger"
-                    />
-                    <Field
-                      type="text"
-                      name="phone"
-                      className="form-input"
-                      placeholder="Enter your phone number"
-                    />
-                    <ErrorMessage
-                      name="phone"
-                      component="div"
-                      className="text-danger"
-                    />
+                    {/* <div className="same-row-input-field">
+                      <Field
+                        type="text"
+                        name="age"
+                        className="form-input"
+                        placeholder="Enter your age"
+                      />
+                      <ErrorMessage
+                        name="age"
+                        component="div"
+                        className="error-msg"
+                      />
+                    </div> */}
+                    <div className="same-row-input-field">
+                      <Field
+                        type="text"
+                        name="phone"
+                        className="form-input"
+                        placeholder="Enter your phone number"
+                      />
+                      <ErrorMessage
+                        name="phone"
+                        component="div"
+                        className="error-msg"
+                      />
+                    </div>
                   </div>
                   <div className="form-same-row input-group">
-                    <Field
-                      type="text"
-                      name="address"
-                      className="form-input text"
-                      placeholder="Enter your address"
-                      as="textarea"
-                      rows="2"
-                    />
-                    <ErrorMessage
-                      name="address"
-                      component="div"
-                      className="text-danger"
-                    />
+                    <div className="same-row-input-field">
+                      <Field
+                        type="text"
+                        name="address"
+                        className="form-input text"
+                        placeholder="Enter your address"
+                        as="textarea"
+                        rows="2"
+                      />
+                      <ErrorMessage
+                        name="address"
+                        component="div"
+                        className="error-msg"
+                      />
+                    </div>
                   </div>
                   <div className="form-same-row input-group">
-                    <Field
-                      type="password"
-                      name="password"
-                      className="form-input"
-                      placeholder="Enter your password"
-                    />
-                    <ErrorMessage
-                      name="password"
-                      component="div"
-                      className="text-danger"
-                    />
-                    <Field
-                      type="password"
-                      name="confpassword"
-                      className="form-input"
-                      placeholder="Confirm your password"
-                    />
-                    <ErrorMessage
-                      name="confpassword"
-                      component="div"
-                      className="text-danger"
-                    />
+                    <div className="same-row-input-field">
+                      <Field
+                        type="password"
+                        name="password"
+                        className="form-input"
+                        placeholder="Enter your password"
+                      />
+                      <ErrorMessage
+                        name="password"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
+                    <div className="same-row-input-field">
+                      <Field
+                        type="password"
+                        name="confpassword"
+                        autoComplete="off"
+                        className="form-input"
+                        placeholder="Confirm your password"
+                      />
+                      <ErrorMessage
+                        name="confpassword"
+                        component="div"
+                        className="text-danger"
+                      />
+                    </div>
                   </div>
                   <button
                     type="submit"
