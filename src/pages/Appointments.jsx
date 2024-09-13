@@ -66,9 +66,9 @@ const Appointments = () => {
           }
         ),
         {
-          success: "Appointment booked successfully",
-          error: "Unable to book appointment",
-          loading: "Booking appointment...",
+          success: "Appointment completed successfully",
+          error: "Unable to complete appointment",
+          loading: "Complete appointment...",
         }
       );
 

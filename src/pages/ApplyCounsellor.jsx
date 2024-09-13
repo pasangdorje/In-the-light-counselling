@@ -107,7 +107,7 @@ const ApplyCounsellor = () => {
             ) : null}
             <button
               type="submit"
-              className="btn form-btn"
+              className="btn form-btn mt-3"
               disabled={formik.isSubmitting || !formik.isValid}
             >
               {formik.isSubmitting ? "Submitting..." : "Apply"}

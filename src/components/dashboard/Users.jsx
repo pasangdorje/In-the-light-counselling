@@ -56,7 +56,7 @@ const Users = () => {
           headers: {
             authorization: `Bearer ${localStorage.getItem("token")}`,
           },
-          data: { selectedUser },
+          data: { userId: selectedUser },
         }),
         {
           pending: "Deleting in...",

@@ -12,8 +12,8 @@ const ConfirmationModal = ({ isOpen, onClose, onConfirm, title, message }) => {
   };
 
   return (
-    <div className="modal flex-center">
-      <div className="modal__content">
+    <div className="modal confirmation-modal flex-center">
+      <div className="modal__content confirmation-modal__content">
         <div className="modal-header">
           <h2>{title}</h2>
           <IoMdClose className="modal-close" onClick={onClose} />

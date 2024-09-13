@@ -120,6 +120,7 @@ function AdminProfile() {
                   );
 
                   resetForm();
+                  getUser();
                 } catch (error) {
                   toast.error("Unable to update profile");
                 } finally {
@@ -180,12 +181,12 @@ function AdminProfile() {
                   </div>
 
                   <div className="form-same-row input-group">
-                    <Field
+                    {/* <Field
                       type="text"
                       name="age"
                       className="form-input"
                       placeholder="Enter your age"
-                    />
+                    /> */}
                     <ErrorMessage
                       name="age"
                       component="div"

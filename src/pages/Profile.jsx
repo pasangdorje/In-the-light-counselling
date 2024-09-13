@@ -118,6 +118,7 @@ function Profile() {
                   );
 
                   resetForm();
+                  getUser();
                 } catch (error) {
                   toast.error("Unable to update profile");
                 } finally {

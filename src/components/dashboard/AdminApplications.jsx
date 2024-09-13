@@ -127,7 +127,6 @@ const AdminApplications = () => {
                 <thead>
                   <tr>
                     <th className="text-center">S.No</th>
-                    <th>Pic</th>
                     <th>First Name</th>
                     <th>Last Name</th>
                     <th>Email</th>
@@ -143,16 +142,6 @@ const AdminApplications = () => {
                     return (
                       <tr key={ele?._id}>
                         <td className="text-center">{i + 1}</td>
-                        <td>
-                          <img
-                            className="user-table-pic"
-                            src={
-                              ele?.userId?.pic ||
-                              "https://icon-library.com/images/anonymous-avatar-icon/anonymous-avatar-icon-25.jpg"
-                            }
-                            alt={ele?.userId?.firstname}
-                          />
-                        </td>
                         <td>{ele?.userId?.firstname}</td>
                         <td>{ele?.userId?.lastname}</td>
                         <td>{ele?.userId?.email}</td>

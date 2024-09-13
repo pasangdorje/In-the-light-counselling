@@ -55,7 +55,7 @@ const AdminCounsellors = () => {
       await toast.promise(
         axios.put(
           "/counsellor/deletecounsellor",
-          { selectedUser },
+          { userId: selectedUser },
           {
             headers: {
               authorization: `Bearer ${localStorage.getItem("token")}`,

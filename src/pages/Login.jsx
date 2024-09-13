@@ -23,7 +23,7 @@ function Login() {
       const userData = await fetchData(`/user/getuser/${id}`);
       dispatch(setUserInfo(userData));
       if (userData?.isAdmin) {
-        return navigate("/dashboard/users");
+        return navigate("/dashboard/home");
       } else {
         return navigate("/");
       }
