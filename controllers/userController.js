@@ -118,18 +118,26 @@ const updateprofile = async (req, res) => {
 
 const deleteuser = async (req, res) => {
   try {
+    // Delete the user
     const result = await User.findByIdAndDelete(req.body.userId);
-    const removeCounsellor = await Counsellor.findOneAndDelete({
-      userId: req.body.userId,
-    });
-    const removeAppoint = await Appointment.findOneAndDelete({
-      userId: req.body.userId,
-    });
-    return res.send("User deleted successfully");
+
+    if (!result) {
+      return res.status(404).send("User not found");
+    }
+
+    // Delete the counsellor associated with this user (if any)
+    await Counsellor.deleteMany({ userId: req.body.userId });
+
+    // Delete all appointments associated with this user
+    await Appointment.deleteMany({ userId: req.body.userId });
+
+    return res.send("User and related data deleted successfully");
   } catch (error) {
+    console.error("Error deleting user:", error);
     res.status(500).send("Unable to delete user");
   }
 };
+
 
 const getGenderData = async (req, res) => {
   const possibleGenders = ["Male", "Female", "Other"];

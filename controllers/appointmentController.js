@@ -52,7 +52,7 @@ const getallappointments = async (req, res) => {
 
 const getupcomingappointments = async (req, res) => {
   try {
-    const { search, page = 1, limit = 10 } = req.query;
+    const { search } = req.query;
 
     const keyword = search
       ? {
@@ -60,45 +60,40 @@ const getupcomingappointments = async (req, res) => {
         }
       : {};
 
-    const currentDate = new Date().toISOString().slice(0, 10); // Get today's date in 'YYYY-MM-DD' format
+    // Get today's date
+    const currentDate = new Date().toISOString().slice(0, 10); // 'YYYY-MM-DD'
 
-    // Filter for dates greater than or equal to today (upcoming appointments)
+    // Filter for appointments from today onwards
     const dateFilter = {
       date: { $gte: currentDate },
     };
 
-    // Combine the keyword and date filters
-    const filters = [keyword, dateFilter].filter(
+    // Filter for "pending" status
+    const statusFilter = { status: "Pending" };
+
+    // Combine the keyword, date, and status filters
+    const filters = [keyword, dateFilter, statusFilter].filter(
       (filter) => Object.keys(filter).length > 0
     );
 
-    // Calculate the number of documents to skip based on the current page
-    const skip = (page - 1) * limit;
-
-    // Fetch upcoming appointments based on the combined filter, with pagination
+    // Fetch 5 upcoming "pending" appointments starting from today
     const appointments = await Appointment.find({ $and: filters })
       .populate("counsellorId")
       .populate("userId")
       .sort({ date: 1 }) // Sort by date in ascending order (soonest first)
-      .skip(skip)
-      .limit(parseInt(limit));
+      .limit(5); // Limit the result to 5 appointments
 
-    // Count total upcoming appointments that match the filters (without pagination)
-    const totalAppointments = await Appointment.countDocuments({
-      $and: filters,
-    });
-
-    // Return the upcoming appointments along with pagination data
+    // Return the upcoming appointments (no pagination)
     return res.send({
-      totalRows: totalAppointments,
-      totalPages: Math.ceil(totalAppointments / limit),
-      currentPage: parseInt(page),
+      totalRows: appointments.length,
       data: appointments,
     });
   } catch (error) {
+    console.error("Error fetching upcoming appointments:", error);
     res.status(500).send("Unable to get upcoming appointments");
   }
 };
+
 
 const getTotalBookingsOverTime = async (req, res) => {
   try {
@@ -198,7 +193,7 @@ const bookappointment = async (req, res) => {
       if (counsellor?.email) {
         const counsellorEmail = counsellor.email;
         const emailSubject = "Appointment Scheduled";
-        const emailText = `You have a new appointment scheduled with ${user.firstname} ${user.lastname} on ${req.body.date} at ${req.body.time}`;
+        const emailText = `You have a new appointment scheduled with ${user.firstname} ${user.lastname} on ${req.body.date} at ${req.body.time}.`;
 
         await sendEmailWithTemplate(counsellorEmail, counsellor.firstname, emailSubject, emailText);
       }
@@ -240,8 +235,8 @@ const completed = async (req, res) => {
 
     try {
       const userEmail = user.email;
-      const emailSubject = "Appointment Confirmation";
-      const emailText = `Your appointment with Counsellor ${req.body.counsellorname} for ${req.body.date} ${req.body.time}.`;
+      const emailSubject = "Appointment Completion";
+      const emailText = `Your appointment with Counsellor ${req.body.counsellorname} for ${alreadyFound.date} ${alreadyFound.time} has been completed.`;
 
       await sendEmailWithTemplate(userEmail,user.firstname, emailSubject, emailText);
     } catch (emailError) {
@@ -253,8 +248,8 @@ const completed = async (req, res) => {
       const counsellor = await User.findById(req.body.counsellorId);
       if (counsellor?.email) {
         const counsellorEmail = counsellor.email;
-        const emailSubject = "Appointment Scheduled";
-        const emailText = `Your appointment with ${user.firstname} ${user.lastname} has been completed`;
+        const emailSubject = "Appointment Completion";
+        const emailText = `Your appointment with ${user.firstname} ${user.lastname} for ${alreadyFound.date} ${alreadyFound.time} has been completed.`;
 
         await sendEmailWithTemplate(counsellorEmail, counsellor.firstname, emailSubject, emailText);
       }
